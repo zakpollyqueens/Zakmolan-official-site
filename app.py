@@ -36,9 +36,10 @@ def send_email(subject, recipient_email, message):
         print("Email error:", e)
         return False
 
+
 @app.route("/")
 def home():
-    return render_template("index.html")  # changed from index.html
+    return render_template("index.html")
 
 
 @app.route('/about')
