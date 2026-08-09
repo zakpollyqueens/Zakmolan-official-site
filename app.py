@@ -4,16 +4,17 @@ import os
 
 app = Flask(__name__)
 
-# EMAIL CONFIG - GMAIL
+# ===== EMAIL CONFIG - GMAIL =====
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'zakmolan@gmail.com'  # YOUR EMAIL
-app.config['MAIL_PASSWORD'] = 'wuvptqdcewltumpi'   # GMAIL APP PASSWORD
+app.config['MAIL_USERNAME'] = 'zakmolan@gmail.com'  # YOUR GMAIL
+app.config['MAIL_PASSWORD'] = 'wuvptqdcewltumpi'   # YOUR GMAIL APP PASSWORD - NO SPACES
 app.config['MAIL_DEFAULT_SENDER'] = 'zakmolan@gmail.com'
 
 mail = Mail(app)
 
+# ===== ROUTES =====
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -33,23 +34,27 @@ def contact():
         email = request.form.get('email')
         message = request.form.get('message')
         
-        # Send email to you
-        msg = Message(
-            subject=f"New Website Message from {name}",
-            recipients=['zakmolan@gmail.com'],  # emails come here
-            body=f"""
-New Contact Form Submission
+        try:
+            # Send email to you
+            msg = Message(
+                subject=f"New Website Message from {name}",
+                recipients=['zakmolan@gmail.com'],  # emails come to this inbox
+                body=f"""
+New Contact Form Submission - Zakmolanitech
 
 Name: {name}
 Email: {email}
 
 Message:
 {message}
-            """
-        )
-        mail.send(msg)
+                """
+            )
+            mail.send(msg)
+            return render_template('contact.html', success=True)
         
-        return render_template('contact.html', success=True)
+        except Exception as e:
+            print(f"Email Error: {e}")
+            return render_template('contact.html', error=True)
     
     return render_template('contact.html')
 
