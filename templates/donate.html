@@ -1,3 +1,4 @@
+<!-- Donate page: add Flutterwave button -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,10 +29,10 @@
                 <p>Bank: Example Bank<br>Account name: Zakmolanitechsolutions<br>Account number: 1234567890<br>Branch: Kampala</p>
             </li>
         </ul>
-        <p style="font-size:0.9em; color:#a0b4c8;">Note: This site does not process card payments directly. The Mobile Money widget initiates a provider request and expects provider webhooks to confirm payment.</p>
+        <p style="font-size:0.9em; color:#a0b4c8;">Note: This site does not process card payments directly. The Mobile Money and Flutterwave widgets initiate a provider request and expect provider webhooks to confirm payment.</p>
     </div>
 
-    <h3>Pay with Mobile Money</h3>
+    <h3>Pay with Mobile Money or Card</h3>
     <p>Select provider, enter donor phone (the phone that will authorize the charge) and amount, then click "Initiate". You (the operator) will receive a callback/webhook when the provider notifies us.
     </p>
 
@@ -40,12 +41,16 @@
         <label><input type="radio" name="momo_provider" value="airtel"> Airtel</label>
 
         <div style="margin-top:15px;">
+            <input id="donor-name" type="text" placeholder="Your Name (optional)" style="width:100%; padding:10px; margin-bottom:10px;">
             <input id="momo-phone" type="text" placeholder="Donor phone (eg +2567XXXXXXXX)" style="width:100%; padding:10px; margin-bottom:10px;">
+            <input id="momo-email" type="email" placeholder="Donor email (optional)" style="width:100%; padding:10px; margin-bottom:10px;">
             <input id="momo-amount" type="text" placeholder="Amount (e.g. 50000)" style="width:100%; padding:10px; margin-bottom:10px;">
             <input id="momo-currency" type="text" placeholder="Currency (UGX)" value="UGX" style="width:100%; padding:10px; margin-bottom:10px;">
             <button class="btn" onclick="initiateMoMo()">Initiate Mobile Money</button>
             <p style="margin-top:12px; color:#a0b4c8;">Transaction reference: <span id="momo-txref"></span></p>
             <button class="btn" style="margin-top:8px; background:#2b6cb0;" onclick="checkStatus()">Check Status</button>
+            <hr style="margin:20px 0; border-color:#112240;">
+            <button class="btn" style="background:#ff8c00;" onclick="createFlutterwavePayment()">Pay with Card (Flutterwave)</button>
         </div>
     </div>
 
@@ -73,5 +78,6 @@
 </footer>
 <a href="https://wa.me/256742956448" target="_blank" class="whatsapp-btn">💬 Chat on WhatsApp</a>
 <script src="{{ url_for('static', filename='momo.js') }}"></script>
+<script src="{{ url_for('static', filename='payments.js') }}"></script>
 </body>
 </html>
