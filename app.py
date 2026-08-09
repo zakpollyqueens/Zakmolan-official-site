@@ -13,6 +13,7 @@ app.config['MAIL_PASSWORD'] = 'wuvptqdcewltumpi'   # YOUR GMAIL APP PASSWORD - N
 app.config['MAIL_DEFAULT_SENDER'] = 'zakmolan@gmail.com'
 
 mail = Mail(app)
+print("Flask-Mail version loaded:", Mail.__module__)
 
 # ===== ROUTES =====
 @app.route('/')
