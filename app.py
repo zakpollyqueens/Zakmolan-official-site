@@ -41,9 +41,9 @@ def home():
     return render_template("home.html")  # changed from index.html
 
 
-@app.route("/about")
+@app.route('/about')
 def about():
-    return render_template("about.html")
+    return render_template('about.html')
 
 
 @app.route("/services")
