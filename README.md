@@ -1,10 +1,11 @@
-I removed payment-related endpoints and files from the application and replaced the payments frontend/script with a no-op.
+This repository currently has payments and donation functionality removed.
 
-What I removed/disabled:
-- All /payments/* and /momo/* endpoints (create/verify/webhook) have been removed from app.py.
-- static/payments.js replaced with a stub.
-- templates/payments_return.html replaced with a notice page.
+What was removed
+- Donation database and related endpoints (admin listing, donation records) have been removed from the application.
+- Payment integrations (MTN, Airtel, Flutterwave) were removed in earlier commits.
 
-Notes:
-- The donations DB and admin endpoints remain available so historical donation records are preserved and accessible via the admin endpoints (protected by ADMIN_KEY).
-- If you want the files fully deleted from the repo history instead of stubbed, I can open a PR with file deletions or walk you through removing them via the GitHub UI.
+What remains
+- Static site pages (index, about, services, contact) and contact email sending (requires EMAIL_PASSWORD env var).
+- The /donate route now redirects to home with a notice.
+
+If you want donations or payments restored later, I can re-add a clean, sandbox-first integration for MTN/Airtel or integrate an aggregator.
