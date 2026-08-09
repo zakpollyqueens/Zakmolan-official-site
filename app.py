@@ -8,16 +8,16 @@ app = Flask(__name__)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'zakmolan@gmail.com'  # YOUR GMAIL
+app.config['MAIL_USERNAME'] = 'zakmolan@gmail.com'  
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')  # From Render Environment
 app.config['MAIL_DEFAULT_SENDER'] = 'zakmolan@gmail.com'
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')   # NEW - SAFE
+
 mail = Mail(app)
-print("Flask-Mail version loaded:", Mail.__module__)
 
 # ===== ROUTES =====
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('home.html')
 
 @app.route('/about')
 def about():
@@ -35,10 +35,9 @@ def contact():
         message = request.form.get('message')
         
         try:
-            # Send email to you
             msg = Message(
                 subject=f"New Website Message from {name}",
-                recipients=['zakmolan@gmail.com'],  # emails come to this inbox
+                recipients=['zakmolan@gmail.com'],
                 body=f"""
 New Contact Form Submission - Zakmolanitech
 
