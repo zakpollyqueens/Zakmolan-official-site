@@ -1,28 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head><title>About - Zakmolanitechsolutions</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
-<body>
-<header>
-    <div class="logo">ZMI</div>
-    <nav><a href="/">Home</a> <a href="/about">About</a> <a href="/services">Services</a> <a href="/contact">Contact</a> <a href="/donate">Donate</a></nav>
-</header>
-<div class="container">
-    <h2>About Us</h2>
-    <p>Zakmolanitechsolutions is dedicated to delivering reliable technology solutions and hardware for businesses and individuals in Uganda and beyond.</p>
+{% extends "index.html" %}
+{% block title %}About Us - Zakmolanitech Solutions{% endblock %}
+{% block content %}
 
-    <h3>Our Mission</h3>
-    <p>To provide innovative, affordable, and reliable tech solutions that empower growth.</p>
+<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200" alt="Our Team" style="width:100%;height:300px;object-fit:cover;border-radius:10px;margin-bottom:30px">
 
-    <h3>Our Vision</h3>
-    <p>To be the leading tech solutions provider in Uganda and across Africa.</p>
+<h1>About Zakmolanitech Solutions</h1>
+<p style="font-size:1.1rem;line-height:1.8;margin-bottom:20px">
+    Zakmolanitech Solutions is a Kampala-based technology company dedicated to helping businesses and individuals leverage technology for growth.
+    We specialize in IT Support, Web Development, and Cybersecurity for clients across Uganda.
+</p>
+
+<h2>Our Mission</h2>
+<p style="margin-bottom:20px">
+    To provide affordable, reliable, and secure technology solutions that empower Ugandan businesses to compete in the digital world.
+</p>
+
+<h2>🔧 IT Support Expertise</h2>
+<p>We handle all common IT issues quickly. Here's our quick reference guide for you:</p>
+
+<img src="{{ url_for('static', filename='it-tips.jpg') }}" alt="IT Support Tips" style="width:100%;border-radius:10px;margin:20px 0;box-shadow:0 4px 15px rgba(106,17,203,0.3)">
+<a href="{{ url_for('static', filename='it-tips.jpg') }}" download class="btn" style="margin-bottom:30px">⬇️ Download IT Tips Guide</a>
+
+<div style="display:flex;gap:30px;margin-top:20px;flex-wrap:wrap">
+    <div style="flex:1;min-width:250px">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500" alt="Values" style="width:100%;border-radius:10px">
+        <h3>Our Values</h3>
+        <ul style="line-height:1.8">
+            <li><b>Innovation:</b> We use the latest technology</li>
+            <li><b>Reliability:</b> We deliver what we promise</li>
+            <li><b>Customer First:</b> Your success is our success</li>
+        </ul>
+    </div>
+    <div style="flex:1;min-width:250px">
+        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=500" alt="Team" style="width:100%;border-radius:10px">
+        <h3>Why Choose a Local Company?</h3>
+        <p>Based in Kampala. We offer fast on-site support and understand the Ugandan business environment. Call us anytime: <b>0742 956448</b></p>
+    </div>
 </div>
-<footer>
-    <p><b>Zakmolanitechsolutions</b></p>
-    <p>📍 Kampala, Uganda</p>
-    <p>📞 256 742956448 / 256 775226333 | 📧 zakmolan@gmail.com</p>
-    <p>© 2026 Zakmolanitechsolutions. All Rights Reserved.</p>
-</footer>
-<a href="https://wa.me/256742956448" target="_blank" class="whatsapp-btn">💬 Chat on WhatsApp</a>
-</body>
-</html>
+
+{% endblock %}
