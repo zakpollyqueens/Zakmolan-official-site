@@ -2,59 +2,20 @@
 {% block title %}About Us - Zakmolanitech Solutions{% endblock %}
 {% block content %}
 
-<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200" alt="Our Team" style="width:100%;height:300px;object-fit:cover;border-radius:10px;margin-bottom:30px">
-
 <h1>About Zakmolanitech Solutions</h1>
-<p style="font-size:1.1rem;line-height:1.8;margin-bottom:20px">
-    Zakmolanitech Solutions is a Kampala-based technology company dedicated to helping businesses and individuals leverage technology for growth.
-    We specialize in IT Support, Web Development, and Cybersecurity for clients across Uganda.
+<p>
+    Zakmolanitech Solutions is a Kampala-based technology company. 
+    We specialize in IT Support, Web Development, and Cybersecurity.
 </p>
 
-<!-- FOUNDER SECTION - YOUR PART -->
-<div style="display:flex;gap:30px;align-items:center;background:linear-gradient(135deg,#6a11cb10,#2575fc10);padding:30px;border-radius:15px;margin:40px 0;flex-wrap:wrap;border-left:5px solid #6a11cb">
-    <div style="flex:0 0 200px;text-align:center">
-        <img src="{{ url_for('static', filename='IMG-20260720-WA4879.jpg') }}" alt="Founder Zakmolanitech" style="width:200px;height:200px;border-radius:50%;object-fit:cover;border:4px solid #6a11cb;box-shadow:0 5px 20px rgba(106,17,203,0.3)">
-    </div>
-    <div style="flex:1;min-width:250px">
-        <h2 style="color:#6a11cb;margin-bottom:10px">Meet the Founder</h2>
-        <h3 style="margin-bottom:10px">Your Name Here</h3>
-        <p style="line-height:1.8;font-size:1.05rem">
-            Hi, I’m Engineer KAMOGA ISAAC NEWTON . I started Zakmolanitech Solutions to help Ugandan businesses grow with simple, reliable, and affordable technology. 
-            With 5+ years in IT Support and Web Development, I’ve helped 50+ clients get online and stay secure.
-            <br><br>
-            My mission: "Make technology work for you, not against you." 
-            When I’m not fixing computers or coding websites, you’ll find me training youth in Kampala on digital skills.
-        </p>
-        <a href="/contact" class="btn" style="margin-top:10px">Book a Call With Me</a>
-    </div>
-</div>
+<h2>Meet the Founder</h2>
+<img src="{{ url_for('static', filename='IMG-20260720-WA4879.jpg') }}" 
+     alt="Founder" 
+     style="width:200px;height:200px;border-radius:50%;border:4px solid #6a11cb">
 
-<h2>Our Mission</h2>
-<p style="margin-bottom:20px">
-    To provide affordable, reliable, and secure technology solutions that empower Ugandan businesses to compete in the digital world.
+<p>
+    Hi, I’m Engineer KAMOGA ISAAC, Founder of Zakmolanitech Solutions. 
+    I help Ugandan businesses grow with technology.
 </p>
-
-<h2>🔧 IT Support Expertise</h2>
-<p>We handle all common IT issues quickly. Here's our quick reference guide for you:</p>
-
-<img src="{{ url_for('static', filename='it-tips.jpg') }}" alt="IT Support Tips" style="width:100%;border-radius:10px;margin:20px 0;box-shadow:0 4px 15px rgba(106,17,203,0.3)">
-<a href="{{ url_for('static', filename='it-tips.jpg') }}" download class="btn" style="margin-bottom:30px">⬇️ Download IT Tips Guide</a>
-
-<div style="display:flex;gap:30px;margin-top:20px;flex-wrap:wrap">
-    <div style="flex:1;min-width:250px">
-        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500" alt="Values" style="width:100%;border-radius:10px">
-        <h3>Our Values</h3>
-        <ul style="line-height:1.8">
-            <li><b>Innovation:</b> We use the latest technology</li>
-            <li><b>Reliability:</b> We deliver what we promise</li>
-            <li><b>Customer First:</b> Your success is our success</li>
-        </ul>
-    </div>
-    <div style="flex:1;min-width:250px">
-        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=500" alt="Team" style="width:100%;border-radius:10px">
-        <h3>Why Choose a Local Company?</h3>
-        <p>Based in Kampala. We offer fast on-site support and understand the Ugandan business environment. Call us anytime: <b>0742 956448</b></p>
-    </div>
-</div>
 
 {% endblock %}
