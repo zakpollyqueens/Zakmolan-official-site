@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Our Services - Zakmolanitech{% endblock %}
+
+{% block content %}
+<style>
+.page-hero{text-align:center; padding:100px 20px; color:white}
+.page-hero h1{font-size:3rem; margin-bottom:20px}
+.service-list{max-width:900px; margin:0 auto; display:grid; gap:30px}
+.service-item{background:rgba(255,255,255,0.15); padding:30px; border-radius:20px; color:white}
+</style>
+
+<section class="page-hero">
+    <h1>Our Services</h1>
+    <p>Everything you need to grow digitally</p>
+</section>
+
+<div class="service-list">
+    <div class="service-item">
+        <h3>🌐 Web Development</h3>
+        <p>Custom websites, e-commerce stores, and web applications built with modern tech. Fast, responsive, and SEO optimized.</p>
+    </div>
+    <div class="service-item">
+        <h3>🔒 Cyber Security</h3>
+        <p>Penetration testing, vulnerability assessments, and security audits to protect your business from hackers.</p>
+    </div>
+    <div class="service-item">
+        <h3>💻 IT Support & Consulting</h3>
+        <p>24/7 technical support, network setup, cloud migration, and digital transformation for your company.</p>
+    </div>
+</div>
+{% endblock %}
