@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donate - Zakmolanitechsolutions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <div class="logo">ZMI</div>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/services">Services</a>
+        <a href="/contact">Contact</a>
+        <a href="/donate">Donate</a>
+    </nav>
+</header>
+<div class="container">
+    <h2>Support Zakmolanitechsolutions</h2>
+    <p>Your donations help us provide services, train staff, and expand our community programs. Thank you for considering a gift.</p>
+
+    <div style="background:#112240; padding:20px; border-radius:10px; margin-bottom:30px;">
+        <h3>Ways to donate</h3>
+        <ul>
+            <li><b>PayPal / Card:</b> Use our PayPal link: <a href="https://www.paypal.me/zakmolan" target="_blank" style="color:#64ffda;">paypal.me/zakmolan</a> (replace with your PayPal.me link)</li>
+            <li><b>Mobile Money (MTN/Airtel):</b> Send to: <b>+256 742956448</b> (MTN Mobile Money / Airtel Money)</li>
+            <li><b>Bank Transfer:</b>
+                <p>Bank: Example Bank<br>Account name: Zakmolanitechsolutions<br>Account number: 1234567890<br>Branch: Kampala</p>
+            </li>
+        </ul>
+        <p style="font-size:0.9em; color:#a0b4c8;">Note: This page does not process payments directly. After sending funds please use the form below to notify us so we can confirm receipt and send a thank-you receipt.</p>
+    </div>
+
+    <h3>Notify us of your donation</h3>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}<p style="color:#64ffda;">{{ messages[0] }}</p>{% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <input type="text" name="name" placeholder="Your Name (optional)" >
+        <input type="email" name="email" placeholder="Your Email (optional)">
+        <input type="text" name="amount" placeholder="Amount sent (e.g. UGX 50,000)" required>
+        <textarea name="message" rows="4" placeholder="Any note or transaction ID (optional)"></textarea>
+        <button class="btn" type="submit">Notify Us</button>
+    </form>
+
+    <p style="margin-top:20px;">Questions? Call us at <a href="tel:256742956448" style="color:#64ffda;">256 742956448</a> or <a href="https://wa.me/256742956448" style="color:#64ffda;">chat on WhatsApp</a>.</p>
+</div>
+<footer>
+    <p><b>Zakmolanitechsolutions</b></p>
+    <p>📍 Kampala, Uganda</p>
+    <p>📞 256 742956448 / 256 775226333 | 📧 zakmolan@gmail.com</p>
+    <p>© 2026 Zakmolanitechsolutions. All Rights Reserved.</p>
+</footer>
+<a href="https://wa.me/256742956448" target="_blank" class="whatsapp-btn">💬 Chat on WhatsApp</a>
+</body>
+</html>

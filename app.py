@@ -65,6 +65,28 @@ def contact():
     return render_template("contact.html")
 
 
+@app.route("/donate", methods=["GET", "POST"])
+def donate():
+    """Donation info page. This does NOT process payments — it lets donors tell us they sent funds
+    externally (PayPal, Mobile Money, bank transfer) and notifies the company via email.
+    """
+    if request.method == "POST":
+        name = request.form.get("name", "Anonymous")
+        email = request.form.get("email", "")
+        amount = request.form.get("amount", "")
+        message = request.form.get("message", "")
+
+        full_message = f"Donation amount: {amount}\n\n{message}"
+
+        if send_email(name, email, full_message):
+            flash("✅ Thank you! Donation details sent. We'll reach out to confirm receipt.")
+        else:
+            flash("❌ Error sending donation info. Please contact us by phone or WhatsApp.")
+        return redirect("/donate")
+
+    return render_template("donate.html")
+
+
 if __name__ == "__main__":
     # Bind to the port provided by the environment (Render, Heroku, etc.)
     port = int(os.environ.get("PORT", 5000))
