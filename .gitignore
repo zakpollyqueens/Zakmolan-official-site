@@ -4,3 +4,6 @@ __pycache__/
 instance/
 .env.local
 .DS_Store
+git add .
+git commit -m "Update about page with team image and IT tips"
+git push
