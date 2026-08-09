@@ -9,9 +9,8 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'zakmolan@gmail.com'  # YOUR GMAIL
-app.config['MAIL_PASSWORD'] = 'wuvptqdcewltumpi'   # YOUR GMAIL APP PASSWORD - NO SPACES
 app.config['MAIL_DEFAULT_SENDER'] = 'zakmolan@gmail.com'
-
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')   # NEW - SAFE
 mail = Mail(app)
 print("Flask-Mail version loaded:", Mail.__module__)
 
