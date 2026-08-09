@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, jsonify
+from flask import Flask, render_template, request, redirect, flash, jsonify, abort
 import smtplib
 from email.mime.text import MIMEText
 import os
@@ -23,6 +23,9 @@ YOUR_PASSWORD = os.environ.get("EMAIL_PASSWORD")  # Must be set in the environme
 MTN_ENV = os.environ.get("MTN_ENV", "sandbox")
 AIRTEL_ENV = os.environ.get("AIRTEL_ENV", "sandbox")
 FLW_ENV = os.environ.get("FLW_ENV", "live")
+
+# Admin key for viewing donations (set in env for quick admin access)
+ADMIN_KEY = os.environ.get("ADMIN_KEY")
 
 # Mobile money config env var names (placeholders — set in your host)
 # MTN: MTN_API_URL, MTN_TOKEN_URL, MTN_CLIENT_ID, MTN_CLIENT_SECRET, MTN_SUBSCRIPTION_KEY, MTN_WEBHOOK_SECRET
@@ -100,6 +103,16 @@ def get_donation_by_tx(tx_ref):
     return dict(zip(keys, row))
 
 
+def list_donations(limit=100):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute("SELECT id, provider, tx_ref, phone, amount, currency, status, message, donor_email, created_at FROM donations ORDER BY created_at DESC LIMIT ?", (limit,))
+    rows = c.fetchall()
+    conn.close()
+    keys = ["id", "provider", "tx_ref", "phone", "amount", "currency", "status", "message", "donor_email", "created_at"]
+    return [dict(zip(keys, r)) for r in rows]
+
+
 def send_email(subject, recipient_email, message):
     if not YOUR_PASSWORD:
         print("Email error: EMAIL_PASSWORD environment variable is not set")
@@ -126,10 +139,8 @@ def send_email(subject, recipient_email, message):
 
 
 # -------------------------
-# MTN & Airtel placeholders (kept as before)
+# MTN & Airtel placeholders
 # -------------------------
-# (existing MTN/Airtel functions omitted for brevity in this file excerpt — they remain unchanged)
-
 
 def get_mtn_token():
     token_url = os.environ.get("MTN_TOKEN_URL")
@@ -247,7 +258,7 @@ def initiate_airtel_collection(phone, amount, currency, tx_ref):
 
 
 # -------------------------
-# Flutterwave implementation
+# Flutterwave implementation (left intact)
 # -------------------------
 
 FLW_API_BASE = os.environ.get("FLW_API_BASE", "https://api.flutterwave.com/v3")
@@ -257,7 +268,6 @@ FLW_WEBHOOK_SECRET = os.environ.get("FLW_WEBHOOK_SECRET")
 
 
 def create_flw_payment_link(amount, currency, tx_ref, redirect_url, customer):
-    """Create a Flutterwave payment. Returns dict with success and link/message."""
     if not FLW_SECRET_KEY:
         return {"success": False, "message": "FLW_SECRET_KEY not configured"}
 
@@ -278,7 +288,6 @@ def create_flw_payment_link(amount, currency, tx_ref, redirect_url, customer):
         r = requests.post(endpoint, json=payload, headers=headers, timeout=15)
         r.raise_for_status()
         data = r.json()
-        # data['data']['link'] usually contains the hosted payment page
         link = data.get('data', {}).get('link')
         return {"success": True, "link": link, "raw": data}
     except Exception as e:
@@ -299,7 +308,7 @@ def verify_flw_payment(tx_ref):
 
 
 # -------------------------
-# Routes (existing + new payments endpoints)
+# Routes
 # -------------------------
 
 @app.route("/")
@@ -352,9 +361,222 @@ def donate():
     return render_template("donate.html")
 
 
-@app.route("/payments/create", methods=["POST"])
+@app.route("/momo/initiate", methods=["POST"])
+def momo_initiate():
+    data = request.json or {}
+    provider = data.get("provider")
+    phone = data.get("phone")
+    amount = data.get("amount")
+    currency = data.get("currency", "UGX")
+    donor_email = data.get("donor_email", "")
+
+    if provider not in ("mtn", "airtel"):
+        return jsonify({"success": False, "message": "Unsupported provider"}), 400
+    if not phone or not amount:
+        return jsonify({"success": False, "message": "phone and amount are required"}), 400
+
+    tx_ref = str(uuid.uuid4())
+    rec = {
+        "id": str(uuid.uuid4()),
+        "provider": provider,
+        "tx_ref": tx_ref,
+        "phone": phone,
+        "amount": amount,
+        "currency": currency,
+        "status": "initiated",
+        "message": "Initiated by server",
+        "donor_email": donor_email,
+        "created_at": datetime.utcnow().isoformat(),
+    }
+    save_donation_record(rec)
+
+    try:
+        if provider == "mtn":
+            resp = initiate_mtn_collection(phone, amount, currency, tx_ref)
+        else:
+            resp = initiate_airtel_collection(phone, amount, currency, tx_ref)
+
+        rec["message"] = resp.get("message") if isinstance(resp, dict) else str(resp)
+        if resp.get("success"):
+            rec["status"] = "pending"
+        else:
+            rec["status"] = "error"
+        save_donation_record(rec)
+
+        return jsonify({"success": resp.get("success", False), "tx_ref": tx_ref, "message": rec["message"]})
+    except Exception as e:
+        rec["status"] = "error"
+        rec["message"] = str(e)
+        save_donation_record(rec)
+        return jsonify({"success": False, "message": str(e)}), 500
+
+
+@app.route("/momo/verify", methods=["POST"])
+def momo_verify():
+    data = request.json or {}
+    provider = data.get("provider")
+    tx_ref = data.get("tx_ref")
+
+    if not provider or not tx_ref:
+        return jsonify({"success": False, "message": "provider and tx_ref required"}), 400
+
+    local = get_donation_by_tx(tx_ref)
+    if not local:
+        return jsonify({"success": False, "message": "tx_ref not found"}), 404
+
+    # Provider-specific verify implementation
+    if provider == "mtn":
+        try:
+            prov = verify_mtn_tx(tx_ref)
+            if prov.get("success") and prov.get("data"):
+                status = prov["data"].get("status") or prov["data"].get("transactionStatus")
+                update_donation_status(tx_ref, status or "unknown", json.dumps(prov.get("data")))
+                local = get_donation_by_tx(tx_ref)
+                return jsonify({"success": True, "tx_ref": tx_ref, "status": local.get("status"), "provider_response": prov.get("data")})
+            return jsonify({"success": False, "message": prov.get("message")}), 502
+        except Exception as e:
+            return jsonify({"success": False, "message": str(e)}), 500
+    else:
+        try:
+            # Airtel verification may mirror MTN pattern — attempt generic verification if endpoint present
+            airtel_url = os.environ.get("AIRTEL_API_URL")
+            if not airtel_url:
+                return jsonify({"success": True, "tx_ref": tx_ref, "status": local.get("status"), "local_record": local})
+            # placeholder: implement provider verify when docs/credentials are available
+            return jsonify({"success": True, "tx_ref": tx_ref, "status": local.get("status"), "local_record": local})
+        except Exception as e:
+            return jsonify({"success": False, "message": str(e)}), 500
+
+
+@app.route("/momo/webhook", methods=["POST"])
+def momo_webhook():
+    # Verify webhook signature if provided
+    provider = request.headers.get("X-Provider", "unknown").lower()
+    body = request.get_data() or b""
+
+    # Choose secret based on provider header or JSON field
+    secret = None
+    if provider == 'mtn':
+        secret = os.environ.get('MTN_WEBHOOK_SECRET')
+    elif provider == 'airtel':
+        secret = os.environ.get('AIRTEL_WEBHOOK_SECRET')
+    else:
+        secret = os.environ.get('MTN_WEBHOOK_SECRET') or os.environ.get('AIRTEL_WEBHOOK_SECRET')
+
+    if secret:
+        sig_header = request.headers.get('X-Callback-Signature') or request.headers.get('X-Hub-Signature')
+        if sig_header:
+            computed = base64.b64encode(hmac.new(secret.encode(), body, hashlib.sha256).digest()).decode()
+            if not hmac.compare_digest(computed, sig_header):
+                print('Webhook signature mismatch')
+                return jsonify({'success': False, 'message': 'signature mismatch'}), 403
+
+    payload = request.json or {}
+    tx_ref = payload.get("tx_ref") or payload.get("reference") or payload.get("externalId") or payload.get("externalID")
+    provider_field = payload.get("provider") or provider or "mtn"
+    status = payload.get("status") or payload.get("transactionStatus") or payload.get("result") or "unknown"
+    phone = payload.get("phoneNumber") or payload.get("source") or ""
+    amount = payload.get("amount") or payload.get("paymentAmount") or ""
+    donor_email = payload.get("payerEmail") or payload.get("payerMSISDN") or payload.get("payer") or ""
+
+    # Update or create local record
+    if tx_ref:
+        loc = get_donation_by_tx(tx_ref)
+        if loc:
+            update_donation_status(tx_ref, status, json.dumps(payload))
+        else:
+            rec = {
+                "id": str(uuid.uuid4()),
+                "provider": provider_field,
+                "tx_ref": tx_ref,
+                "phone": phone,
+                "amount": amount,
+                "currency": payload.get("currency", "UGX"),
+                "status": status,
+                "message": json.dumps(payload),
+                "donor_email": donor_email,
+                "created_at": datetime.utcnow().isoformat(),
+            }
+            save_donation_record(rec)
+    else:
+        rec = {
+            "id": str(uuid.uuid4()),
+            "provider": provider_field,
+            "tx_ref": str(uuid.uuid4()),
+            "phone": phone,
+            "amount": amount,
+            "currency": payload.get("currency", "UGX"),
+            "status": status,
+            "message": json.dumps(payload),
+            "donor_email": donor_email,
+            "created_at": datetime.utcnow().isoformat(),
+        }
+        save_donation_record(rec)
+        tx_ref = rec["tx_ref"]
+
+    print(f"Received webhook for tx_ref={tx_ref} provider={provider_field} status={status}")
+
+    success_states = {"SUCCESS", "COMPLETED", "00", "success", "completed"}
+    if str(status).upper() in success_states:
+        local = get_donation_by_tx(tx_ref)
+        donor_email = (local.get("donor_email") if local else None) or donor_email
+        owner_msg = f"Donation received\nProvider: {provider_field}\nTxRef: {tx_ref}\nPhone: {phone}\nAmount: {amount}\nStatus: {status}\n\nFull payload:\n{json.dumps(payload, indent=2)}"
+        send_email(f"Donation received: {tx_ref}", donor_email or YOUR_EMAIL, owner_msg)
+
+    return jsonify({"success": True, "tx_ref": tx_ref}), 200
+
+
+# -------------------------
+# Flutterwave endpoints (payments/create, verify, webhook) left as before
+# -------------------------
+
+FLW_API_BASE = os.environ.get("FLW_API_BASE", "https://api.flutterwave.com/v3")
+FLW_SECRET_KEY = os.environ.get("FLW_SECRET_KEY")
+FLW_PUBLIC_KEY = os.environ.get("FLW_PUBLIC_KEY")
+FLW_WEBHOOK_SECRET = os.environ.get("FLW_WEBHOOK_SECRET")
+
+
+def create_flw_payment_link(amount, currency, tx_ref, redirect_url, customer):
+    if not FLW_SECRET_KEY:
+        return {"success": False, "message": "FLW_SECRET_KEY not configured"}
+    endpoint = FLW_API_BASE.rstrip('/') + '/payments'
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {FLW_SECRET_KEY}'
+    }
+    payload = {
+        "tx_ref": tx_ref,
+        "amount": str(amount),
+        "currency": currency,
+        "redirect_url": redirect_url,
+        "customer": customer,
+        "meta": {"reason": "Zakmolanitechsolutions donation"}
+    }
+    try:
+        r = requests.post(endpoint, json=payload, headers=headers, timeout=15)
+        r.raise_for_status()
+        data = r.json()
+        link = data.get('data', {}).get('link')
+        return {"success": True, "link": link, "raw": data}
+    except Exception as e:
+        return {"success": False, "message": str(e)}
+
+
+def verify_flw_payment(tx_ref):
+    if not FLW_SECRET_KEY:
+        return {"success": False, "message": "FLW_SECRET_KEY not configured"}
+    endpoint = FLW_API_BASE.rstrip('/') + f'/transactions/verify_by_reference?reference={tx_ref}'
+    headers = {'Authorization': f'Bearer {FLW_SECRET_KEY}'}
+    try:
+        r = requests.get(endpoint, headers=headers, timeout=10)
+        r.raise_for_status()
+        return {"success": True, "data": r.json()}
+    except Exception as e:
+        return {"success": False, "message": str(e)}
+
+
+@app.route('/payments/create', methods=['POST'])
 def payments_create():
-    """Create a Flutterwave payment session and return the hosted payment link."""
     data = request.json or {}
     amount = data.get('amount')
     currency = data.get('currency', 'UGX')
@@ -369,7 +591,6 @@ def payments_create():
     redirect_url = data.get('redirect_url') or (request.url_root.rstrip('/') + '/payments/return')
     customer = {"email": donor_email or "", "phonenumber": phone or "", "name": name or "Donor"}
 
-    # Save local donation record with provider flutterwave
     rec = {
         'id': str(uuid.uuid4()),
         'provider': 'flutterwave',
@@ -391,7 +612,6 @@ def payments_create():
         save_donation_record(rec)
         return jsonify({'success': False, 'message': flw.get('message')}), 500
 
-    # Update record with message
     rec['message'] = 'Payment link created'
     rec['status'] = 'pending'
     save_donation_record(rec)
@@ -401,8 +621,6 @@ def payments_create():
 
 @app.route('/payments/return')
 def payments_return():
-    # This is the redirect URL Flutterwave returns donors to after payment.
-    # We simply show a thank-you page and leave verification to webhooks.
     return render_template('payments_return.html')
 
 
@@ -421,7 +639,6 @@ def payments_verify():
     if not prov.get('success'):
         return jsonify({'success': False, 'message': prov.get('message')}), 502
 
-    # Provider response structure varies; save the whole response
     update_donation_status(tx_ref, 'verified', json.dumps(prov.get('data')))
     local = get_donation_by_tx(tx_ref)
     return jsonify({'success': True, 'tx_ref': tx_ref, 'local_record': local})
@@ -429,12 +646,10 @@ def payments_verify():
 
 @app.route('/payments/webhook', methods=['POST'])
 def payments_webhook():
-    # Flutterwave sends a 'verif-hash' header computed with your webhook secret
     body = request.get_data() or b''
     sig_header = request.headers.get('verif-hash') or request.headers.get('VERIF-HASH')
     secret = FLW_WEBHOOK_SECRET
 
-    # If secret is set, verify
     if secret and sig_header:
         computed = hmac.new(secret.encode(), body, hashlib.sha256).hexdigest()
         if not hmac.compare_digest(computed, sig_header):
@@ -442,10 +657,8 @@ def payments_webhook():
             return jsonify({'success': False, 'message': 'signature mismatch'}), 403
 
     payload = request.json or {}
-    event = payload.get('event') or payload.get('data', {}).get('status') or payload.get('data', {}).get('tx_ref')
     data = payload.get('data') or payload
 
-    # Extract reference and status (common fields)
     tx_ref = data.get('tx_ref') or data.get('reference') or data.get('id')
     status = data.get('status') or data.get('transaction_status') or 'unknown'
     amount = data.get('amount') or data.get('charged_amount') or ''
@@ -472,10 +685,8 @@ def payments_webhook():
             }
             save_donation_record(rec)
 
-    # Send receipt/notification on successful charge
     success_states = {'successful', 'success', 'completed', 'paid', 'PAID'}
     if str(status).lower() in success_states:
-        # Notify owner and donor
         local = get_donation_by_tx(tx_ref) or {}
         donor = donor_email or local.get('donor_email') if local else None
         owner_msg = f"Payment received via Flutterwave\nTxRef: {tx_ref}\nStatus: {status}\nAmount: {amount} {currency}\n\nFull payload:\n{json.dumps(payload, indent=2)}"
@@ -484,7 +695,29 @@ def payments_webhook():
     return jsonify({'success': True}), 200
 
 
-# Keep existing momo endpoints (initiate/verify/webhook) in app.py — they remain available
+# -------------------------
+# Admin endpoints (simple, protected by ADMIN_KEY env var)
+# -------------------------
+
+@app.route('/admin/donations')
+def admin_donations():
+    key = request.args.get('admin_key')
+    if not ADMIN_KEY or key != ADMIN_KEY:
+        abort(403)
+    donations = list_donations(limit=500)
+    return jsonify({'success': True, 'count': len(donations), 'donations': donations})
+
+
+@app.route('/admin/donation/<tx_ref>')
+def admin_view_donation(tx_ref):
+    key = request.args.get('admin_key')
+    if not ADMIN_KEY or key != ADMIN_KEY:
+        abort(403)
+    d = get_donation_by_tx(tx_ref)
+    if not d:
+        return jsonify({'success': False, 'message': 'not found'}), 404
+    return jsonify({'success': True, 'donation': d})
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
