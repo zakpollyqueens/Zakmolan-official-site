@@ -1,9 +1,38 @@
 {% extends "base.html" %}
 {% block title %}Contact - Zakmolanitech{% endblock %}
 {% block content %}
-<div class="container" style="padding:100px 20px; text-align:center; color:white">
-    <h1 style="font-size:3rem; margin-bottom:20px">Contact Us</h1>
-    <p style="font-size:1.2rem">WhatsApp: +256 742 956 448</p>
-    <p style="font-size:1.2rem">Email: zakmolan@gmail.com</p>
+<style>
+.contact-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; margin-top:40px}
+.contact-card{background:rgba(255,255,255,0.15); padding:30px; border-radius:20px; border:1px solid rgba(255,255,255,0.2); color:white}
+.contact-card a{color:#00c6ff; text-decoration:none; font-weight:bold}
+.contact-card a:hover{text-decoration:underline}
+</style>
+
+<div class="container" style="padding:80px 20px; color:white">
+    <h1 style="font-size:3rem; text-align:center; margin-bottom:10px">Get In Touch</h1>
+    <p style="text-align:center; font-size:1.2rem; opacity:0.9">We'd love to hear from you</p>
+
+    <div class="contact-grid">
+        <div class="contact-card">
+            <h3>📱 WhatsApp 1</h3>
+            <p><a href="https://wa.me/256742956448" target="_blank">+256 742 956 448</a></p>
+        </div>
+        <div class="contact-card">
+            <h3>📱 WhatsApp 2</h3>
+            <p><a href="https://wa.me/256775226333" target="_blank">+256 775 226 333</a></p>
+        </div>
+        <div class="contact-card">
+            <h3>📧 Email</h3>
+            <p><a href="mailto:info@zakmolanitech.com">info@zakmolanitech.com</a></p>
+        </div>
+        <div class="contact-card">
+            <h3>📢 Telegram Channel</h3>
+            <p><a href="https://t.me/Zakmolanitechsolutions" target="_blank">@Zakmolanitechsolutions</a></p>
+        </div>
+        <div class="contact-card">
+            <h3>👥 Telegram Group</h3>
+            <p><a href="https://t.me/Zakitech" target="_blank">Join Zakitech</a></p>
+        </div>
+    </div>
 </div>
 {% endblock %}
