@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head><title>Contact - Zakmolanitechsolutions</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+<header>
+    <div class="logo">ZMI</div>
+    <nav><a href="/">Home</a> <a href="/about">About</a> <a href="/services">Services</a> <a href="/contact">Contact</a></nav>
+</header>
+<div class="container">
+    <h2>Contact Us</h2>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}<p style="color:#64ffda;">{{ messages[0] }}</p>{% endif %}
+    {% endwith %}
+
+    <div style="background:#112240; padding:20px; border-radius:10px; margin-bottom:30px;">
+        <h3>Get In Touch</h3>
+        <p><b>📞 Phone 1:</b> <a href="tel:256742956448" style="color:#64ffda;">256 742956448</a></p>
+        <p><b>📞 Phone 2:</b> <a href="tel:256775226333" style="color:#64ffda;">256 775226333</a></p>
+        <p><b>📧 Email:</b> <a href="mailto:zakmolan@gmail.com" style="color:#64ffda;">zakmolan@gmail.com</a></p>
+        <a href="https://wa.me/256742956448" target="_blank" style="display:inline-block; background:#25D366; color:white; padding:12px 25px; border-radius:8px; text-decoration:none; font-weight:bold; margin-top:10px;">💬 Chat on WhatsApp</a>
+    </div>
+
+    <h3>Send Us a Message</h3>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <button class="btn" type="submit">Send Message</button>
+    </form>
+</div>
+<footer>
+    <p><b>Zakmolanitechsolutions</b></p>
+    <p>📍 Kampala, Uganda</p>
+    <p>📞 256 742956448 / 256 775226333 | 📧 zakmolan@gmail.com</p>
+    <p>© 2026 Zakmolanitechsolutions. All Rights Reserved.</p>
+</footer>
+<a href="https://wa.me/256742956448" target="_blank" class="whatsapp-btn">💬 Chat on WhatsApp</a>
+</body>
+</html>
