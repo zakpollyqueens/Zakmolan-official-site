@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
@@ -5,20 +9,147 @@ body {
     background-size: 400% 400%;
     animation: gradientMove 15s ease infinite;
     color: white;
+    overflow-x: hidden;
+    position: relative;
 }
+
+/* Animated background with particles */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(100, 255, 218, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(30, 58, 138, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+    animation: glowShift 20s ease-in-out infinite;
+}
+
 @keyframes gradientMove {
     0% {background-position: 0% 50%;}
     50% {background-position: 100% 50%;}
     100% {background-position: 0% 50%;}
 }
+
+@keyframes glowShift {
+    0%, 100% {
+        filter: brightness(1) contrast(1);
+    }
+    50% {
+        filter: brightness(1.1) contrast(1.05);
+    }
+}
+
+/* Ensure content stays above the background effects */
+header, .container, footer, section {
+    position: relative;
+    z-index: 1;
+}
+
 header { text-align: center; padding: 40px 20px; }
-nav a { color: #64ffda; margin: 0 15px; text-decoration: none; font-weight: bold; }
-nav a:hover { text-decoration: underline; }
-.logo { font-size: 2.8em; font-weight: bold; color: #64ffda; letter-spacing: 2px; }
-.container { max-width: 900px; margin: auto; padding: 40px 20px; }
-.btn { background: #64ffda; color: #0a192f; padding: 12px 25px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-input, textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; box-sizing: border-box; }
-footer { text-align:center; padding:30px 20px; border-top:1px solid #112240; margin-top:40px; }
+
+nav a { 
+    color: #64ffda; 
+    margin: 0 15px; 
+    text-decoration: none; 
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+}
+
+nav a:hover { 
+    text-decoration: underline;
+    text-shadow: 0 0 20px rgba(100, 255, 218, 0.8);
+    transform: scale(1.05);
+}
+
+.logo { 
+    font-size: 2.8em; 
+    font-weight: bold; 
+    color: #64ffda; 
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(100, 255, 218, 0.5);
+    animation: logoGlow 3s ease-in-out infinite;
+}
+
+@keyframes logoGlow {
+    0%, 100% {
+        text-shadow: 0 0 20px rgba(100, 255, 218, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 40px rgba(100, 255, 218, 0.8);
+    }
+}
+
+h1, h2 {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container { 
+    max-width: 900px; 
+    margin: auto; 
+    padding: 40px 20px;
+}
+
+.btn { 
+    background: #64ffda; 
+    color: #0a192f; 
+    padding: 12px 25px; 
+    border: none; 
+    border-radius: 5px; 
+    font-weight: bold; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+}
+
+.btn:hover {
+    box-shadow: 0 0 30px rgba(100, 255, 218, 0.8);
+    transform: translateY(-3px);
+}
+
+input, textarea { 
+    width: 100%; 
+    padding: 10px; 
+    margin: 10px 0; 
+    border-radius: 5px; 
+    border: 1px solid #64ffda;
+    box-sizing: border-box;
+    background: rgba(10, 25, 47, 0.7);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #64ffda;
+    box-shadow: 0 0 15px rgba(100, 255, 218, 0.4);
+    background: rgba(10, 25, 47, 0.9);
+}
+
+footer { 
+    text-align: center; 
+    padding: 30px 20px; 
+    border-top: 1px solid #112240; 
+    margin-top: 40px;
+    background: rgba(17, 34, 64, 0.5);
+    backdrop-filter: blur(10px);
+}
+
 .whatsapp-btn {
     position: fixed;
     bottom: 20px;
@@ -29,7 +160,43 @@ footer { text-align:center; padding:30px 20px; border-top:1px solid #112240; mar
     border-radius: 50px;
     text-decoration: none;
     font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
     z-index: 999;
+    transition: all 0.3s ease;
 }
-.whatsapp-btn:hover { background: #128C7E; }
+
+.whatsapp-btn:hover { 
+    background: #128C7E;
+    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.7);
+    transform: translateY(-5px);
+}
+
+/* Floating particles */
+.particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.particle::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgba(100, 255, 218, 0.5);
+    border-radius: 50%;
+}
+
+/* Pulsing glow effect */
+section {
+    animation: sectionPulse 6s ease-in-out infinite;
+}
+
+@keyframes sectionPulse {
+    0%, 100% {
+        background: transparent;
+    }
+    50% {
+        background: rgba(30, 58, 138, 0.05);
+    }
+}
