@@ -5,14 +5,14 @@
 <style>
 .contact-container{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin:30px 0}
 @media(max-width:768px){.contact-container{grid-template-columns:1fr}}
-.contact-box{background:white;padding:25px;border-radius:12px;border:1px solid #eee}
+.contact-box{background:white;padding:25px;border-radius:12px;border:1px solid #eee;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
 .contact-btn{display:flex;align-items:center;gap:12px;padding:14px;border-radius:10px;margin-bottom:12px;text-decoration:none;font-weight:bold;transition:0.2s}
 .contact-btn:hover{transform:translateX(5px)}
 .email{background:#f0f4ff;color:#2575fc}
 .whatsapp{background:#25D366;color:white}
 .telegram{background:#0088cc;color:white}
-.contact-form input,.contact-form textarea{width:100%;padding:12px;margin-bottom:12px;border:1px solid #ddd;border-radius:8px}
-.contact-form button{background:#6a11cb;color:white;border:none;padding:14px;border-radius:8px;width:100%;cursor:pointer}
+.contact-form input,.contact-form textarea{width:100%;padding:12px;margin-bottom:12px;border:1px solid #ddd;border-radius:8px;font-size:16px}
+.contact-form button{background:#6a11cb;color:white;border:none;padding:14px;border-radius:8px;width:100%;cursor:pointer;font-size:16px;font-weight:bold}
 .contact-form button:hover{background:#2575fc}
 </style>
 
@@ -21,7 +21,12 @@
 
 {% if success %}
 <div style="background:#d4edda;color:#155724;padding:12px;border-radius:8px;margin:20px 0">
-    Thank you! We received your message.
+    ✅ Thank you! We received your message. We'll reply soon.
+</div>
+{% endif %}
+{% if error %}
+<div style="background:#f8d7da;color:#721c24;padding:12px;border-radius:8px;margin:20px 0">
+    ❌ Failed to send. Please try again or use WhatsApp below.
 </div>
 {% endif %}
 
@@ -46,22 +51,18 @@
             📧 <div><b>Email</b><br>zakmolan@gmail.com</div>
         </a>
 
-        <!-- WHATSAPP 1 -->
         <a href="https://wa.me/256742956448" target="_blank" class="contact-btn whatsapp">
             💬 <div><b>WhatsApp 1</b><br>+256 742 956 448</div>
         </a>
 
-        <!-- WHATSAPP 2 - ADDED -->
         <a href="https://wa.me/256775226333" target="_blank" class="contact-btn whatsapp">
             💬 <div><b>WhatsApp 2</b><br>+256 775 226 333</div>
         </a>
 
-        <!-- TELEGRAM CHANNEL -->
         <a href="https://t.me/Zakmolanitechsolutions" target="_blank" class="contact-btn telegram">
             ✈️ <div><b>Telegram Channel</b><br>@Zakmolanitechsolutions</div>
         </a>
 
-        <!-- TELEGRAM GROUP -->
         <a href="https://t.me/zakitechsubs" target="_blank" class="contact-btn telegram">
             👥 <div><b>Telegram Group</b><br>@zakitechsubs</div>
         </a>
@@ -72,37 +73,6 @@
         </p>
     </div>
 
-</div> <!-- CLOSED CONTACT-CONTAINER HERE -->
-
-<!-- FOOTER MOVED OUTSIDE -->
-<footer style="background:#222; color:white; padding:40px 20px; margin-top:60px;">
-    <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:30px;">
-        
-        <div>
-            <h3 style="color:#00c6ff; margin-bottom:15px;">ZAKMOLANITECH</h3>
-            <p style="color:#aaa; line-height:1.6;">Professional IT Solutions in Kampala. Web Development, Cyber Security & IT Support.</p>
-        </div>
-
-        <div>
-            <h3 style="color:#00c6ff; margin-bottom:15px;">Quick Links</h3>
-            <a href="/" style="display:block; color:#aaa; text-decoration:none; margin:8px 0;">Home</a>
-            <a href="/about" style="display:block; color:#aaa; text-decoration:none; margin:8px 0;">About</a>
-            <a href="/services" style="display:block; color:#aaa; text-decoration:none; margin:8px 0;">Services</a>
-            <a href="/contact" style="display:block; color:#aaa; text-decoration:none; margin:8px 0;">Contact</a>
-        </div>
-
-        <div>
-            <h3 style="color:#00c6ff; margin-bottom:15px;">Contact</h3>
-            <p style="color:#aaa; margin:8px 0;">📞 +256 742 956 448</p>
-            <p style="color:#aaa; margin:8px 0;">📞 +256 775 226 333</p>
-            <p style="color:#aaa; margin:8px 0;">📧 zakmolan@gmail.com</p>
-            <p style="color:#aaa; margin:8px 0;">📍 Kampala, Uganda</p>
-        </div>
-    </div>
-
-    <div style="text-align:center; border-top:1px solid #444; margin-top:30px; padding-top:20px; color:#888;">
-        © 2026 Zakmolanitech Solutions. All Rights Reserved.
-    </div>
-</footer>
+</div>
 
 {% endblock %}
