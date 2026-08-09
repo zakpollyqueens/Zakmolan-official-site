@@ -10,3 +10,6 @@ git push
 git add .
 git commit -m "Add about and services pages"
 git push
+git add .
+git commit -m "Add contact page"
+git push
