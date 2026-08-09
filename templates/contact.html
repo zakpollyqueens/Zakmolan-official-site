@@ -1,40 +1,36 @@
 {% extends "index.html" %}
-{% block title %}Contact Us - Zakmolanitech{% endblock %}
+{% block title %}Contact Us - Zakmolanitech Solutions{% endblock %}
 {% block content %}
 
-<h1>Get In Touch</h1>
-<p>Have a project or question? Send us a message and we’ll get back to you within 24 hours.</p>
+<style>
+.contact-container{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin:40px 0}
+@media(max-width:768px){.contact-container{grid-template-columns:1fr}}
+.contact-info{background:linear-gradient(135deg,#6a11cb10,#2575fc10);padding:30px;border-radius:15px}
+.contact-form input,.contact-form textarea{width:100%;padding:12px;margin-bottom:15px;border:1px solid #ddd;border-radius:8px;font-size:1rem}
+.contact-form button{background:linear-gradient(135deg,#6a11cb,#2575fc);color:white;border:none;padding:14px 30px;border-radius:8px;font-size:1.1rem;cursor:pointer;width:100%}
+.contact-form button:hover{opacity:0.9}
+.social-btn{display:flex;align-items:center;gap:10px;background:white;padding:15px;border-radius:10px;margin-bottom:15px;text-decoration:none;color:#333;border:2px solid #eee;transition:0.3s}
+.social-btn:hover{border-color:#6a11cb;transform:translateX(5px)}
+.telegram{background:#0088cc;color:white;border-color:#0088cc}
+.telegram:hover{background:#0077b5}
+</style>
 
-<div style="display:flex;gap:40px;margin-top:30px;flex-wrap:wrap">
-    <!-- Contact Form -->
-    <div style="flex:2;min-width:300px">
-        <form method="POST">
-            <div style="margin-bottom:15px">
-                <label style="font-weight:bold;display:block;margin-bottom:5px">Your Name</label>
-                <input type="text" name="name" required style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px">
-            </div>
-            <div style="margin-bottom:15px">
-                <label style="font-weight:bold;display:block;margin-bottom:5px">Your Email</label>
-                <input type="email" name="email" required style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px">
-            </div>
-            <div style="margin-bottom:15px">
-                <label style="font-weight:bold;display:block;margin-bottom:5px">Your Message</label>
-                <textarea name="message" rows="6" required style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px"></textarea>
-            </div>
-            <button type="submit" class="btn">Send Message</button>
-        </form>
-    </div>
+<h1>Contact Us</h1>
+<p style="margin-bottom:30px">Have a question or need tech support? We reply fast.</p>
 
-    <!-- Contact Info -->
-    <div style="flex:1;min-width:250px;background:linear-gradient(135deg,#6a11cb,#2575fc);color:white;padding:25px;border-radius:10px">
-        <h3 style="color:white">Contact Info</h3>
-        <p style="margin:15px 0"><b>📍 Address:</b><br>Kampala, Uganda</p>
-        <p style="margin:15px 0"><b>📞 Phone/WhatsApp:</b><br><a href="https://wa.me/256742956448" style="color:#64ffda;text-decoration:none">0742 956448</a></p>
-        <p style="margin:15px 0"><b>📧 Email:</b><br>info@zakmolanitech.com</p>
-        <p style="margin:15px 0"><b>🕐 Hours:</b><br>Mon - Sat: 8AM - 6PM</p>
-        
-        <a href="https://wa.me/256742956448" target="_blank" class="btn" style="background:white;color:#6a11cb;margin-top:15px;display:block;text-align:center">Chat on WhatsApp</a>
-    </div>
-</div>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div style="background:#d4edda;color:#155724;padding:15px;border-radius:8px;margin-bottom:20px">{{ messages[0] }}</div>
+  {% endif %}
+{% endwith %}
 
-{% endblock %}
+<div class="contact-container">
+
+    <!-- LEFT: CONTACT FORM -->
+    <div>
+        <h2>Send us a Message</h2>
+        <form method="POST" class="contact-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="5" placeholder="How can we help you?" required></textarea>
+            <button type
