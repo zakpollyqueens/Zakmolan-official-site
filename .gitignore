@@ -7,3 +7,6 @@ instance/
 git add .
 git commit -m "Update about page with team image and IT tips"
 git push
+git add .
+git commit -m "Add about and services pages"
+git push
