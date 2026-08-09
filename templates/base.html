@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Zakmolanitech Solutions{% endblock %}</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+        body{
+            background: linear-gradient(-45deg, #6a11cb, #2575fc, #00c6ff, #8e2de2);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color:#333;
+            min-height:100vh
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container{max-width:1100px;margin:0 auto;padding:20px}
+        header{
+            background:rgba(34,34,34,0.8);
+            backdrop-filter: blur(10px);
+            color:white;padding:15px 0;position:sticky;top:0;z-index:100;
+            border-bottom:1px solid rgba(255,255,255,0.1)
+        }
+        nav{display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto;padding:0 20px; flex-wrap:wrap}
+        nav a{color:white;text-decoration:none;margin:0 10px;font-weight:bold}
+        nav a:hover{color:#00c6ff}
+        .logo-wrap{ display:flex; align-items:center; gap:12px; }
+        .logo-img{ width:45px; height:45px; object-fit:contain; filter: drop-shadow(0 0 8px rgba(106,17,203,0.5)); }
+        .logo-text{ font-size:1.6rem; font-weight:bold; text-transform: uppercase; letter-spacing: 1px; background:linear-gradient(90deg,#00c6ff,#6a11cb); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .whatsapp-float{
+            position:fixed; width:60px; height:60px; bottom:30px; right:30px; background:#25D366; color:#FFF; border-radius:50px; text-align:center; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); z-index:1000; animation: bounce 2s infinite; transition:0.3s;
+        }
+        .whatsapp-float:hover{ transform: scale(1.1); }
+        .whatsapp-float img{ width:35px; height:35px; margin-top:12px; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+        footer{background:rgba(34,34,34,0.8); color:white; text-align:center; padding:20px; margin-top:50px}
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo-wrap">
+                <img src="{{ url_for('static', filename='IMG-20260809-WA3940.jpg') }}" class="logo-img" alt="Zakmolanitech Logo">
+                <div class="logo-text">ZAKMOLANITECH</div>
+            </div>
+            <div>
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/services">Services</a>
+                <a href="/contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <a href="https://wa.me/256742956448" target="_blank" class="whatsapp-float">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    </a>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2026 Zakmolanitech. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
