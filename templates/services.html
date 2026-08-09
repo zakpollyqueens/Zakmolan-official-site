@@ -2,15 +2,32 @@
 {% block title %}Our Services - Zakmolanitech Solutions{% endblock %}
 {% block content %}
 
-<style>
-.service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;margin:40px 0}
-.service-card{background:white;padding:30px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.1);border-top:4px solid #6a11cb;transition:transform 0.3s}
-.service-card:hover{transform:translateY(-5px)}
-.service-icon{font-size:3rem;margin-bottom:15px}
-.price{font-size:1.5rem;color:#6a11cb;font-weight:bold;margin:15px 0}
-.btn-service{display:inline-block;background:linear-gradient(135deg,#6a11cb,#2575fc);color:white;padding:12px 25px;border-radius:8px;text-decoration:none;font-weight:bold;margin-top:10px}
-.btn-service:hover{opacity:0.9}
-</style>
+<h1>Our Services</h1>
+<p>Professional Tech Solutions for Ugandan Businesses</p>
 
-<h1 style="text-align:center;margin-bottom:10px">Our Services</h1>
-<p style="text-align:center;font-size:1.1rem;color:#666;margin-bottom:40px">
+<div style="margin:30px 0">
+
+    <div style="background:white;padding:20px;border-radius:10px;margin-bottom:20px;border-left:4px solid #6a11cb">
+        <h2>🔧 IT Support & Maintenance</h2>
+        <p>Computer & Laptop Repair, Network Setup, Software Installation, Data Backup</p>
+        <p><b>From UGX 50,000</b></p>
+        <a href="/contact">Book IT Support</a>
+    </div>
+
+    <div style="background:white;padding:20px;border-radius:10px;margin-bottom:20px;border-left:4px solid #6a11cb">
+        <h2>💻 Web Development</h2>
+        <p>Business Websites, E-commerce Stores, Landing Pages, Website Maintenance</p>
+        <p><b>From UGX 800,000</b></p>
+        <a href="/contact">Get a Website</a>
+    </div>
+
+    <div style="background:white;padding:20px;border-radius:10px;margin-bottom:20px;border-left:4px solid #6a11cb">
+        <h2>🛡️ Cybersecurity</h2>
+        <p>Antivirus Setup, Email Security, Staff Training, Website Security Audit</p>
+        <p><b>From UGX 200,000</b></p>
+        <a href="/contact">Secure My Business</a>
+    </div>
+
+</div>
+
+{% endblock %}
