@@ -343,22 +343,9 @@ def contact():
 
 @app.route("/donate", methods=["GET", "POST"])
 def donate():
-    # If POST from the notify form (legacy), handle it here
-    if request.method == "POST" and request.form.get("notify_only"):
-        name = request.form.get("name", "Anonymous")
-        email = request.form.get("email", "")
-        amount = request.form.get("amount", "")
-        message = request.form.get("message", "")
-
-        full_message = f"Donation amount: {amount}\n\n{message}"
-
-        if send_email(name, email, full_message):
-            flash("✅ Thank you! Donation details sent. We'll reach out to confirm receipt.")
-        else:
-            flash("❌ Error sending donation info. Please contact us by phone or WhatsApp.")
-        return redirect("/donate")
-
-    return render_template("donate.html")
+    # Donations are temporarily disabled. Redirect to home with a notice.
+    flash("Donations are temporarily paused. Please contact us at 256 742956448 or zakmolan@gmail.com")
+    return redirect("/")
 
 
 @app.route("/momo/initiate", methods=["POST"])
