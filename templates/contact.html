@@ -1,33 +1,71 @@
-<!-- Success message disabled for now -->
+{% extends "index.html" %}
+{% block title %}Contact Us - Zakmolanitech Solutions{% endblock %}
+{% block content %}
+
 <style>
-.contact-container{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin:40px 0}
+.contact-container{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin:30px 0}
 @media(max-width:768px){.contact-container{grid-template-columns:1fr}}
-.contact-info{background:linear-gradient(135deg,#6a11cb10,#2575fc10);padding:30px;border-radius:15px}
-.contact-form input,.contact-form textarea{width:100%;padding:12px;margin-bottom:15px;border:1px solid #ddd;border-radius:8px;font-size:1rem}
-.contact-form button{background:linear-gradient(135deg,#6a11cb,#2575fc);color:white;border:none;padding:14px 30px;border-radius:8px;font-size:1.1rem;cursor:pointer;width:100%}
-.contact-form button:hover{opacity:0.9}
-.social-btn{display:flex;align-items:center;gap:10px;background:white;padding:15px;border-radius:10px;margin-bottom:15px;text-decoration:none;color:#333;border:2px solid #eee;transition:0.3s}
-.social-btn:hover{border-color:#6a11cb;transform:translateX(5px)}
-.telegram{background:#0088cc;color:white;border-color:#0088cc}
-.telegram:hover{background:#0077b5}
+.contact-box{background:white;padding:25px;border-radius:12px;border:1px solid #eee}
+.contact-btn{display:flex;align-items:center;gap:12px;padding:14px;border-radius:10px;margin-bottom:12px;text-decoration:none;font-weight:bold;transition:0.2s}
+.contact-btn:hover{transform:translateX(5px)}
+.email{background:#f0f4ff;color:#2575fc}
+.whatsapp{background:#25D366;color:white}
+.telegram{background:#0088cc;color:white}
+.contact-form input,.contact-form textarea{width:100%;padding:12px;margin-bottom:12px;border:1px solid #ddd;border-radius:8px}
+.contact-form button{background:#6a11cb;color:white;border:none;padding:14px;border-radius:8px;width:100%;cursor:pointer}
 </style>
 
 <h1>Contact Us</h1>
-<p style="margin-bottom:30px">Have a question or need tech support? We reply fast.</p>
+<p>Reach us any way you like. We reply within 24 hours.</p>
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <div style="background:#d4edda;color:#155724;padding:15px;border-radius:8px;margin-bottom:20px">{{ messages[0] }}</div>
-  {% endif %}
-{% endwith %}
+{% if success %}
+<div style="background:#d4edda;color:#155724;padding:12px;border-radius:8px;margin:20px 0">
+    Thank you! We received your message.
+</div>
+{% endif %}
 
 <div class="contact-container">
 
-    <!-- LEFT: CONTACT FORM -->
-    <div>
-        <h2>Send us a Message</h2>
+    <!-- LEFT: FORM -->
+    <div class="contact-box">
+        <h2>Send a Message</h2>
         <form method="POST" class="contact-form">
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" rows="5" placeholder="How can we help you?" required></textarea>
-            <button type
+            <textarea name="message" rows="4" placeholder="How can we help?" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+
+    <!-- RIGHT: LINKS -->
+    <div class="contact-box">
+        <h2>Other Ways to Reach Us</h2>
+        
+        <a href="mailto:zakmolan@gmail.com" class="contact-btn email">
+            📧 <div><b>Email</b><br>zakmolan@gmail.com</div>
+        </a>
+
+        <!-- WHATSAPP -->
+        <a href="https://wa.me/256742956448" target="_blank" class="contact-btn whatsapp">
+            💬 <div><b>WhatsApp</b><br>+256 742 956 448</div>
+        </a>
+
+        <!-- TELEGRAM CHANNEL -->
+        <a href="https://t.me/Zakmolanitechsolutions" target="_blank" class="contact-btn telegram">
+            ✈️ <div><b>Telegram Channel</b><br>@Zakmolanitechsolutions</div>
+        </a>
+
+        <!-- TELEGRAM GROUP -->
+        <a href="https://t.me/zakitechsubs" target="_blank" class="contact-btn telegram">
+            👥 <div><b>Telegram Group</b><br>@zakitechsubs</div>
+        </a>
+
+        <p style="margin-top:15px;font-size:0.9rem;color:#666">
+            <b>Location:</b> Kampala, Uganda<br>
+            <b>Hours:</b> Mon - Sat, 8AM - 6PM
+        </p>
+    </div>
+
+</div>
+
+{% endblock %}
