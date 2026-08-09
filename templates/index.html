@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <header>
+    <nav>
+        <div class="logo-wrap">
+            <!-- LOGO GOES HERE -->
+            <img src="{{ url_for('static', filename='IMG-20260809-WA3940.jpg') }}" class="logo-img" alt="Zakmolanitech Logo">
+            <div class="logo-text">ZAKMOLANITECH</div>
+        </div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/services">Services</a>
+            <a href="/contact">Contact</a>
+        </div>
+    </nav>
+    </header>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Zakmolanitech Solutions - IT, Web & Cyber Security{% endblock %}</title>
