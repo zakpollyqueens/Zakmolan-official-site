@@ -21,12 +21,16 @@ def home():
 @app.route('/about')
 def about():
     return render_template('about.html')
-    @app.route('/pricing')
-    def pricing():
-        return render_template('pricing.html')
 @app.route('/services')
 def services():
     return render_template('services.html')
+    @app.route('/portfolio')
+def portfolio():
+    return render_template('portfolio.html')
+
+@app.route('/pricing')
+def pricing():
+    return render_template('pricing.html')
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
