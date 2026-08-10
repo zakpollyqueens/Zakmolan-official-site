@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block title %}Portfolio - ZakMolanitech Solutions {% endblock %}
+{% block content %}
+<style>
+.portfolio-hero{padding:120px 20px 60px; text-align:center; color:white; background:linear-gradient(135deg,#6a11cb,#2575fc)}
+.portfolio-section{max-width:1200px; margin:0 auto; padding:60px 20px}
+.section-title{text-align:center; font-size:2.5rem; color:white; margin-bottom:40px}
+.portfolio-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:30px; margin-bottom:60px}
+.portfolio-card{background:rgba(255,255,255,0.98); color:#333; border-radius:20px; overflow:hidden; transition:0.3s; box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+.portfolio-card:hover{transform:translateY(-10px)}
+.portfolio-info{padding:25px}
+.portfolio-info h3{color:#6a11cb; margin-bottom:10px; font-size:1.4rem}
+.requirement{background:#f0f4ff; padding:12px; border-radius:10px; margin:12px 0; font-size:0.9rem; border-left:4px solid #6a11cb}
+.tag{display:inline-block; background:#eef; color:#6a11cb; padding:5px 12px; border-radius:20px; font-size:0.85rem; margin:4px}
+.free-tag{display:inline-block; background:#00c851; color:white; padding:5px 12px; border-radius:20px; font-size:0.85rem; margin:4px; font-weight:bold}
+.btn-view{display:inline-block; background:linear-gradient(90deg,#6a11cb,#2575fc); color:white; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:bold; margin-top:10px}
+.btn-free{display:inline-block; background:#00c851; color:white; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:bold; margin-top:10px}
+.brochure-btn{display:inline-block; background:#ff6a00; color:white; padding:16px 35px; border-radius:12px; text-decoration:none; font-weight:bold; font-size:1.1rem; margin:20px 10px}
+.paypal-btn{background:#0070ba; color:white; padding:12px; border-radius:8px; text-decoration:none; display:inline-block; margin:5px; font-weight:bold}
+.student-gallery{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; margin:30px 0}
+.student-img{border-radius:15px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.2); position:relative}
+.student-img img{width:100%; height:250px; object-fit:cover; display:block}
+.student-img .caption{position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.7); color:white; padding:10px; font-size:0.9rem}
+.testimonial{background:white; color:#333; padding:25px; border-radius:15px; margin:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); text-align:left}
+.testimonial p{font-style:italic; margin-bottom:10px}
+.testimonial span{color:#6a11cb; font-weight:bold}
+.need-banner{background:linear-gradient(135deg,#ff0000,#ff6a00); padding:20px; border-radius:15px; margin:30px auto; max-width:800px; font-size:1.2rem; font-weight:bold}
+.free-box{background:linear-gradient(135deg,#00c851,#00e676); padding:40px; border-radius:20px; text-align:center; color:white; margin:40px auto; max-width:900px}
+</style>
+
+<!-- HERO -->
+<div class="portfolio-hero">
+    <h1 style="font-size:3.2rem; margin-bottom:10px">Zakmolanitech Solutions </h1>
+    <p style="font-size:1.1rem; margin-bottom:20px"><i>"Equipping minds with IT solutions "</i></p>
+    <a href="#free" class="brochure-btn" style="background:#00c851">🎓 Free Lessons</a>
+    <a href="mailto:zakmolan@gmail.com" class="brochure-btn" style="background:#25D366">✉️ Book Your Place</a>
+    <a href="#donate" class="brochure-btn" style="background:#ff0000">❤️ Donate Now</a>
+</div>
+
+<!-- TRAINING -->
+<div class="portfolio-section">
+    <h2 class="section-title">Our Training Programs</h2>
+    <div class="portfolio-grid">
+        <div class="portfolio-card">
+            <div style="width:100%; height:220px; background:linear-gradient(135deg,#6a11cb,#2575fc); display:flex; align-items:center; justify-content:center; font-size:3.5rem">🎓</div>
+            <div class="portfolio-info">
+                <span class="tag">2 Years</span><span class="tag">Diploma</span>
+                <h3>Diploma in ICT</h3>
+                <div class="requirement"><b>Requirements:</b> 5 passes including 2 principal passes at 'A' Level</div>
+                <a href="mailto:zakmolan@gmail.com" class="btn-view">Apply Now</a>
+            </div>
+        </div>
+        <div class="portfolio-card">
+            <div style="width:100%; height:220px; background:linear-gradient(135deg,#6a11cb,#2575fc); display:flex; align-items:center; justify-content:center; font-size:3.5rem">📜</div>
+            <div class="portfolio-info">
+                <span class="tag">1 Year</span><span class="tag">Certificate</span>
+                <h3>Certificate in ICT</h3>
+                <div class="requirement"><b>Requirements:</b> O'Level with A in ICT</div>
+                <a href="mailto:zakmolan@gmail.com" class="btn-view">Apply Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FREE LESSONS SECTION -->
+<div id="free" style="background:#0f172a; padding:80px 20px; color:white">
+    <h2 class="section-title">Free IT Lessons for Needy Youth & Kids 💚</h2>
+    
+    <div class="free-box">
+        <h3 style="font-size:2rem; margin-bottom:15px">Because Talent Shouldn't Depend on Money</h3>
+        <p style="font-size:1.2rem; margin-bottom:25px">
+            Every Saturday we offer FREE computer basics, coding, and digital skills classes 
+            to vulnerable youth and kids in Kampala. No fees. No requirements. Just come and learn.
+        </p>
+        <a href="mailto:zakmolan@gmail.com?subject=Free%20Lessons%20Registration" class="btn-free">Register for Free Classes</a>
+    </div>
+
+    <div class="portfolio-grid" style="margin-top:40px">
+        <div class="portfolio-card">
+            <div style="width:100%; height:220px; background:linear-gradient(135deg,#00c851,#00e676); display:flex; align-items:center; justify-content:center; font-size:3.5rem">💻</div>
+            <div class="portfolio-info">
+                <span class="free-tag">FREE</span><span class="tag">Every Saturday</span>
+                <h3>Computer Basics</h3>
+                <p>Typing, Microsoft Word, Excel, Internet. For kids 8-15 years</p>
+                <a href="mailto:zakmolan@gmail.com" class="btn-free">Join Free</a>
+            </div>
+        </div>
+        <div class="portfolio-card">
+            <div style="width:100%; height:220px; background:linear-gradient(135deg,#00c851,#00e676); display:flex; align-items:center; justify-content:center; font-size:3.5rem">👨‍💻</div>
+            <div class="portfolio-info">
+                <span class="free-tag">FREE</span><span class="tag">12 Weeks</span>
+                <h3>Intro to Coding</h3>
+                <p>HTML, CSS, Python basics. For youth 16-25 years with no laptop</p>
+                <a href="mailto:zakmolan@gmail.com" class="btn-free">Join Free</a>
+            </div>
+        </div>
+        <div class="portfolio-card">
+            <div style="width:100%; height:220px; background:linear-gradient(135deg,#00c851,#00e676); display:flex; align-items:center; justify-content:center; font-size:3.5rem">📱</div>
+            <div class="portfolio-info">
+                <span class="free-tag">FREE</span><span class="tag">Digital Skills</span>
+                <h3>Digital Literacy</h3>
+                <p>Email, CV writing, Online safety, Job searching. For all ages</p>
+                <a href="mailto:zakmolan@gmail.com" class="btn-free">Join Free</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- STUDENTS IN NEED -->
+<div style="background:#1a1a2e; padding:80px 20px; text-align:center; color:white">
+    <h2 class="section-title">The Reality: Students in Need 🇺🇬</h2>
+    <div class="need-banner">Many talented youth have the brains but NO laptop. Help us change that.</div>
+    <p style="font-size:1.2rem; max-width:800px; margin:0 auto 30px; color:#ccc">These are students like the 10 we're raising laptops for. With your support, they can attend our free classes and build a better future.</p>
+    <div class="student-gallery">
+        <div class="student-img">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600" alt="African students sharing one computer">
+            <div class="caption">Sharing 1 computer among 5 students</div>
+        </div>
+        <div class="student-img">
+            <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600" alt="Youth learning in poor conditions">
+            <div class="caption">Learning without proper equipment</div>
+        </div>
+        <div class="student-img">
+            <img src="https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=600" alt="African child eager to learn IT">
+            <div class="caption">Talent is there. Opportunity is missing.</div>
+        </div>
+    </div>
+    <a href="#donate" style="display:inline-block; background:#ff0000; color:white; padding:18px 40px; border-radius:12px; text-decoration:none; font-weight:bold; font-size:1.2rem; margin-top:20px">❤️ Sponsor a Laptop for Free Classes</a>
+</div>
+
+<!-- TESTIMONIALS -->
+<div style="background:#f8f9fa; padding:80px 20px; color:#333; text-align:center">
+    <h2 style="color:#6a11cb; font-size:2.5rem; margin-bottom:15px">Stories of Impact</h2>
+    <div style="max-width:1000px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px">
+        <div class="testimonial"><p>"The free coding classes changed my life. Now I build websites for clients."</p><span>- Sarah, Kampala</span></div>
+        <div class="testimonial"><p>"I couldn't afford training. Zakmolanitech gave me free lessons and now I teach others."</p><span>- David, Gulu</span></div>
+        <div class="testimonial"><p>"Free computer lessons gave me hope. Today I apply for jobs online."</p><span>- Amina, Jinja</span></div>
+    </div>
+</div>
+
+<!-- DONATE -->
+<div id="donate" style="background:linear-gradient(135deg,#ff6a00,#ff9a00); padding:80px 20px; text-align:center; color:white">
+    <h2 style="font-size:2.5rem; margin-bottom:15px">Support Our Free Programs 💙</h2>
+    <p style="font-size:1.1rem; margin-bottom:30px">Your donation buys laptops so more needy youth can join free classes</p>
+    
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:25px; max-width:1000px; margin:0 auto">
+        <div style="background:white; color:#333; padding:30px; border-radius:15px; width:280px"><h3 style="color:#ffcc00; background:#000; padding:8px; border-radius:8px">MTN Mobile Money</h3><p style="font-size:1.9rem; font-weight:bold; color:#6a11cb">256 775 226 333</p></div>
+        <div style="background:white; color:#333; padding:30px; border-radius:15px; width:280px"><h3 style="color:white; background:#e60000; padding:8px; border-radius:8px">Airtel Money</h3><p style="font-size:1.9rem; font-weight:bold; color:#6a11cb">256 742 956 448</p></div>
+        <div style="background:white; color:#333; padding:30px; border-radius:15px; width:280px"><h3 style="color:white; background:linear-gradient(90deg,#eb001b,#f79e1b); padding:8px; border-radius:8px">MasterCard</h3><p style="font-size:1.3rem; font-weight:bold; color:#6a11cb">5316 9226 8241 1239</p></div>
+    </div>
+    <div style="margin-top:40px; background:rgba(255,255,255,0.15); padding:30px; border-radius:15px; max-width:700px; margin:40px auto 0">
+        <h3 style="margin-bottom:15px">🌍 Donate from Anywhere</h3>
+        <a href="https://www.paypal.com/ncp/payment/54KTTBH4GM46Q" target="_blank" class="paypal-btn">Donate $10</a>
+        <a href="https://www.paypal.com/ncp/payment/98RYV5ANN86JG" target="_blank" class="paypal-btn">Donate $25</a>
+        <a href="https://www.paypal.com/ncp/payment/4A4QGF4LMYEVL" target="_blank" class="paypal-btn">Donate $50</a>
+    </div>
+</div>
+
+<!-- DONOR WALL -->
+<div id="donors" style="padding:80px 20px; background:#f8f9fa; color:#333; text-align:center">
+  <h2 style="color:#0070ba; font-size:2.5rem; margin-bottom:10px">💙 Our Amazing Donors</h2>
+  <p style="color:#666; margin-bottom:40px">Every donation helps a student get closer to a laptop</p>
+  <p style="color:#999">Be the first donor! ❤️</p>
+</div>
+
+{% endblock %}
