@@ -58,4 +58,17 @@ def contact():
     return render_template('contact.html')
 
 if __name__ == '__main__':
+    import requests
+from flask import request, jsonify
+
+TELEGRAM_BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"
+TELEGRAM_CHAT_ID = "YOUR_CHAT_ID_HERE"
+
+@app.route('/send-contact', methods=['POST'])
+def send_contact():
+    data = request.get_json()
+    text = f"🚨 NEW LEAD - Zakmolanitech\nName: {data['name']}\nEmail: {data['email']}\nMessage: {data['message']}"
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    requests.post(url, json={"chat_id": TELEGRAM_CHAT_ID, "text": text})
+    return jsonify({"status": "ok"})
     app.run(debug=True)
