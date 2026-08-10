@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Pricing - Zak Molan Technologies{% endblock %}
+{% block content %}
+<style>
+.pricing-hero{padding:120px 20px 40px; text-align:center; color:white}
+.pricing-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:30px; max-width:1100px; margin:50px auto; padding:0 20px}
+.price-card{background:rgba(255,255,255,0.98); color:#333; border-radius:20px; padding:40px 30px; text-align:center; position:relative; transition:0.3s}
+.price-card.featured{border:3px solid #ff6a00; transform:scale(1.05)}
+.price-card:hover{transform:translateY(-10px)}
+.price{font-size:2.8rem; color:#6a11cb; font-weight:bold; margin:20px 0}
+.price span{font-size:1rem; color:#777}
+.feature-list{list-style:none; padding:0; text-align:left; margin:25px 0}
+.feature-list li{padding:10px 0; border-bottom:1px solid #eee}
+.btn-price{display:block; background:linear-gradient(90deg,#6a11cb,#2575fc); color:white; padding:14px; border-radius:10px; text-decoration:none; font-weight:bold; margin-top:20px}
+.badge{position:absolute; top:-15px; right:20px; background:#ff6a00; color:white; padding:8px 15px; border-radius:20px; font-size:0.85rem; font-weight:bold}
+</style>
+
+<div class="pricing-hero">
+    <h1 style="font-size:3rem; margin-bottom:15px">Training & Service Packages</h1>
+    <p style="font-size:1.2rem">Affordable. Professional. Career Focused.</p>
+</div>
+
+<div class="pricing-grid">
+    <!-- CERTIFICATE -->
+    <div class="price-card">
+        <h3>Certificate in ICT</h3>
+        <div class="price">UGX 800,000 <span>/ 1 Year</span></div>
+        <ul class="feature-list">
+            <li>✓ Software & Hardware Fundamentals</li>
+            <li>✓ Microsoft Office Package</li>
+            <li>✓ School Based or Full Time</li>
+            <li>✓ Coursework Seminars</li>
+            <li>✓ Certificate Awarded</li>
+        </ul>
+        <a href="mailto:zakmolan@gmail.com" class="btn-price">Apply Now</a>
+    </div>
+
+    <!-- DIPLOMA - FEATURED -->
+    <div class="price-card featured">
+        <span class="badge">MOST POPULAR</span>
+        <h3>Diploma in ICT</h3>
+        <div class="price">UGX 1,500,000 <span>/ 2 Years</span></div>
+        <ul class="feature-list">
+            <li>✓ Advanced Software & Hardware</li>
+            <li>✓ Management & IT Skills</li>
+            <li>✓ Free Microsoft Office Training</li>
+            <li>✓ 2 Months Job Attachment</li>
+            <li>✓ Job Placement Assistance</li>
+            <li>✓ Internationally Accredited</li>
+        </ul>
+        <a href="mailto:zakmolan@gmail.com" class="btn-price">Apply Now</a>
+    </div>
+
+    <!-- SERVICES -->
+    <div class="price-card">
+        <h3>IT Services</h3>
+        <div class="price">From UGX 200,000</div>
+        <ul class="feature-list">
+            <li>✓ Website Development</li>
+            <li>✓ Software/Hardware Installation</li>
+            <li>✓ Cyber Security Audit</li>
+            <li>✓ System Upgrades & Maintenance</li>
+            <li>✓ Custom Business Solutions</li>
+        </ul>
+        <a href="/services" class="btn-price">Get Quote</a>
+    </div>
+</div>
+
+<div style="text-align:center; padding:60px 20px; color:white">
+    <h2>Need a custom package?</h2>
+    <p>Email us: zakmolan@gmail.com</p>
+</div>
+{% endblock %}
