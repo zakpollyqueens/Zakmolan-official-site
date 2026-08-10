@@ -1,100 +1,50 @@
 {% extends "base.html" %}
-{% block title %}Portfolio - Zakmolanitech Solutions{% endblock %}
+{% block title %}Portfolio - Zak Molan Technologies{% endblock %}
 {% block content %}
 <style>
-.portfolio-hero{padding:120px 20px 60px; text-align:center; color:white}
-.portfolio-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:30px; max-width:1200px; margin:0 auto 60px; padding:0 20px}
-.portfolio-card{background:rgba(255,255,255,0.95); color:#333; border-radius:20px; overflow:hidden; transition:0.3s; box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+.portfolio-hero{padding:120px 20px 60px; text-align:center; color:white; background:linear-gradient(135deg,#6a11cb,#2575fc)}
+.portfolio-section{max-width:1200px; margin:0 auto; padding:60px 20px}
+.section-title{text-align:center; font-size:2.5rem; color:white; margin-bottom:40px}
+.portfolio-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:30px; margin-bottom:60px}
+.portfolio-card{background:rgba(255,255,255,0.98); color:#333; border-radius:20px; overflow:hidden; transition:0.3s; box-shadow:0 10px 30px rgba(0,0,0,0.2)}
 .portfolio-card:hover{transform:translateY(-10px); box-shadow:0 20px 40px rgba(106,17,203,0.4)}
-.portfolio-img{width:100%; height:220px; object-fit:cover; background:linear-gradient(135deg,#6a11cb,#2575fc); display:flex; align-items:center; justify-content:center; font-size:4rem}
+.portfolio-img{width:100%; height:200px; background:linear-gradient(135deg,#6a11cb,#2575fc); display:flex; align-items:center; justify-content:center; font-size:3.5rem}
 .portfolio-info{padding:25px}
 .portfolio-info h3{color:#6a11cb; margin-bottom:10px; font-size:1.4rem}
 .portfolio-info p{margin-bottom:15px; line-height:1.6; color:#555}
-.tag{display:inline-block; background:#eef; color:#6a11cb; padding:5px 12px; border-radius:20px; font-size:0.85rem; margin-right:8px; margin-bottom:10px}
+.requirement{background:#f0f4ff; padding:12px; border-radius:10px; margin:12px 0; font-size:0.9rem; border-left:4px solid #6a11cb}
+.tag{display:inline-block; background:#eef; color:#6a11cb; padding:5px 12px; border-radius:20px; font-size:0.85rem; margin:4px 6px 4px 0}
 .btn-view{display:inline-block; background:linear-gradient(90deg,#6a11cb,#2575fc); color:white; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:bold; margin-top:10px}
-.brochure-btn{display:inline-block; background:#ff6a00; color:white; padding:16px 35px; border-radius:12px; text-decoration:none; font-weight:bold; font-size:1.1rem; margin-bottom:50px}
+.brochure-btn{display:inline-block; background:#ff6a00; color:white; padding:16px 35px; border-radius:12px; text-decoration:none; font-weight:bold; font-size:1.1rem; margin:20px 10px}
 </style>
 
+<!-- HERO -->
 <div class="portfolio-hero">
-    <h1 style="font-size:3.2rem; margin-bottom:15px">Our Portfolio</h1>
-    <p style="font-size:1.2rem; margin-bottom:30px">Real Projects. Real Results. Real Impact.</p>
+    <h1 style="font-size:3.2rem; margin-bottom:10px">ZAK MOLAN TECHNOLOGIES</h1>
+    <p style="font-size:1.3rem; margin-bottom:5px">AND COMPUTER SOLUTIONS</p>
+    <p style="font-size:1.1rem; margin-bottom:20px"><i>"Equipping minds with IT solutions "</i></p>
+    <p style="max-width:800px; margin:auto; font-size:1.1rem">Your one stop centre for all your electronic needs ranging from computer training, software and hardware installations, upgrades, web development and cyber security.</p>
     
-    <!-- BROCHURE BUTTON - Update the link when you upload your brochure -->
-    <a href="/static/Zakmolanitech_Brochure.pdf" target="_blank" class="brochure-btn">
-        📄 Download Company Brochure
-    </a>
+    <a href="/static/Zakmolanitech_Brochure.pdf" target="_blank" class="brochure-btn">📄 Download Company Brochure</a>
+    <a href="mailto:zakmolan@gmail.com" class="brochure-btn" style="background:#25D366">✉️ Book Your Place</a>
 </div>
 
-<div class="portfolio-grid">
-    <!-- PROJECT 1 -->
-    <div class="portfolio-card">
-        <div class="portfolio-img">🌐</div>
-        <div class="portfolio-info">
-            <span class="tag">Web Development</span>
-            <h3>Corporate Website</h3>
-            <p>Modern responsive website for a tech company in Kampala. Includes contact form, blog, and WhatsApp integration.</p>
-            <a href="/services" class="btn-view">View Service</a>
+<!-- SECTION 1: TRAINING & COURSES FROM BROCHURE -->
+<div class="portfolio-section">
+    <h2 class="section-title">Our Training Programs</h2>
+    <div class="portfolio-grid">
+        <!-- DIPLOMA -->
+        <div class="portfolio-card">
+            <div class="portfolio-img">🎓</div>
+            <div class="portfolio-info">
+                <span class="tag">2 Years</span><span class="tag">Diploma</span>
+                <h3>Diploma in ICT</h3>
+                <p>Internationally accredited diploma course. Full time and school based options available.</p>
+                <div class="requirement"><b>Requirements:</b> 5 passes including 2 principal passes at 'A' Level</div>
+                <a href="mailto:zakmolan@gmail.com" class="btn-view">Apply Now</a>
+            </div>
         </div>
-    </div>
 
-    <!-- PROJECT 2 -->
-    <div class="portfolio-card">
-        <div class="portfolio-img">🛒</div>
-        <div class="portfolio-info">
-            <span class="tag">E-commerce</span>
-            <h3>Online Store</h3>
-            <p>Full e-commerce platform with MTN MoMo + Airtel Money payments, product catalog, and delivery tracking.</p>
-            <a href="/services" class="btn-view">View Service</a>
-        </div>
-    </div>
-
-    <!-- PROJECT 3 -->
-    <div class="portfolio-card">
-        <div class="portfolio-img">🔒</div>
-        <div class="portfolio-info">
-            <span class="tag">Cyber Security</span>
-            <h3>Security Audit</h3>
-            <p>Complete cyber security audit + staff training for a school. Fixed vulnerabilities and improved data protection.</p>
-            <a href="/services" class="btn-view">View Service</a>
-        </div>
-    </div>
-
-    <!-- PROJECT 4 -->
-    <div class="portfolio-card">
-        <div class="portfolio-img">👨‍🏫</div>
-        <div class="portfolio-info">
-            <span class="tag">IT Training</span>
-            <h3>Training Program</h3>
-            <p>3-month intensive training for 20+ students on Web Development and Cyber Security fundamentals.</p>
-            <a href="/services" class="btn-view">View Service</a>
-        </div>
-    </div>
-
-    <!-- PROJECT 5 -->
-    <div class="portfolio-card">
-        <div class="portfolio-img">📱</div>
-        <div class="portfolio-info">
-            <span class="tag">Mobile App</span>
-            <h3>Business App</h3>
-            <p>Custom mobile application for managing clients, invoices, and inventory for small businesses.</p>
-            <a href="/services" class="btn-view">View Service</a>
-        </div>
-    </div>
-
-    <!-- PROJECT 6 -->
-    <div class="portfolio-card">
-        <div class="portfolio-img">🎨</div>
-        <div class="portfolio-info">
-            <span class="tag">Branding</span>
-            <h3>Brand Identity</h3>
-            <p>Complete branding package including logo, business cards, and social media templates.</p>
-            <a href="/services" class="btn-view">View Service</a>
-        </div>
-    </div>
-</div>
-
-<div style="text-align:center; padding:40px 20px; color:white">
-    <h2 style="font-size:2rem; margin-bottom:15px">Got a project in mind?</h2>
-    <a href="/services" style="background:white; color:#6a11cb; padding:16px 35px; border-radius:12px; text-decoration:none; font-weight:bold; font-size:1.1rem">Let's Build It Together</a>
-</div>
-{% endblock %}
+        <!-- CERTIFICATE -->
+        <div class="portfolio-card">
+            <div class="portfolio-img">📜</
