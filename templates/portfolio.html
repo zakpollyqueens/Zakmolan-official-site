@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Portfolio - ZakMolanitech Solutions {% endblock %}
+{% block content %}
+<style>
+.portfolio-hero{padding:120px 20px 60px; text-align:center; color:white; background:linear-gradient(135deg,#6a11cb,#2575fc)}
+.portfolio-section{max-width:1200px; margin:0 auto; padding:60px 20px}
+.section-title{text-align:center; font-size:2.5rem; color:white; margin-bottom:40px}
+.portfolio-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:30px; margin-bottom:60px}
+.portfolio-card{background:rgba(255,255,255,0.98); color:#333; border-radius:20px; overflow:hidden; transition:0.3s; box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+.portfolio-card:hover{transform:translateY(-10px); box-shadow:0 20px 40px rgba(106,17,203,0.4)}
+.portfolio-img{width:100%; height:200px; background:linear-gradient(135deg,#6a11cb,#2575fc); display:flex; align-items:center; justify-content:center; font-size:3.5rem}
+.portfolio-info{padding:25px}
+.portfolio-info h3{color:#6a11cb; margin-bottom:10px; font-size:1.4rem}
+.portfolio-info p{margin-bottom:15px; line-height:1.6; color:#555}
+.requirement{background:#f0f4ff; padding:12px; border-radius:10px; margin:12px 0; font-size:0.9rem; border-left:4px solid #6a11cb}
+.tag{display:inline-block; background:#eef; color:#6a11cb; padding:5px 12px; border-radius:20px; font-size:0.85rem; margin:4px 6px 4px 0}
+.btn-view{display:inline-block; background:linear-gradient(90deg,#6a11cb,#2575fc); color:white; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:bold; margin-top:10px}
+.brochure-btn{display:inline-block; background:#ff6a00; color:white; padding:16px 35px; border-radius:12px; text-decoration:none; font-weight:bold; font-size:1.1rem; margin:20px 10px}
+.brochure-btn[href="#donate"]{animation: pulse 2s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,0,0,0.7)}70%{box-shadow:0 0 0 15px rgba(255,0,0,0)}100%{box-shadow:0 0 0 0 rgba(255,0,0,0)}}
+.paypal-btn{background:#0070ba; color:white; padding:12px; border-radius:8px; text-decoration:none; display:inline-block; margin:5px; font-weight:bold}
+</style>
+
+<!-- HERO -->
+<div class="portfolio-hero">
+    <h1 style="font-size:3.2rem; margin-bottom:10px">Zakmolanitech Solutions </h1>
+    <p style="font-size:1.1rem; margin-bottom:20px"><i>"Equipping minds with IT solutions "</i></p>
+    <p style="max-width:800px; margin:auto; font-size:1.1rem">Your one stop centre for all your electronic needs ranging from computer training, software and hardware installations, upgrades, web development and cyber security.</p>
+    
+    <a href="/static/Zakmolanitech_brochure.jpg" target="_blank" class="brochure-btn">📄 Download Company Brochure</a>
+    <a href="mailto:zakmolan@gmail.com" class="brochure-btn" style="background:#25D366">✉️ Book Your Place</a>
+    <a href="#donate" class="brochure-btn" style="background:#ff0000">❤️ Donate Now</a>
+</div>
+
+<!-- SECTION 1: TRAINING & COURSES -->
+<div class="portfolio-section">
+    <h2 class="section-title">Our Training Programs</h2>
+    <div class="portfolio-grid">
+        <!-- ONLINE LESSONS -->
+        <div class="portfolio-card" style="border:3px solid #ff6a00">
+            <div class="portfolio-img">💻</div>
+            <div class="portfolio-info">
+                <span class="tag">Online</span><span class="tag">Live</span><span class="
