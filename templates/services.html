@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Services - Zakmolanitech Solutions{% endblock %}
+{% block content %}
+<style>
+.form-section{background:rgba(255,255,255,0.95); color:#333; padding:50px 30px; border-radius:20px; margin-top:50px; max-width:700px; margin-left:auto; margin-right:auto}
+.form-section h2{text-align:center; margin-bottom:20px; font-size:2rem; color:#6a11cb}
+.form-group{margin-bottom:20px}
+.form-group label{display:block; margin-bottom:8px; font-weight:bold}
+.form-group input, .form-group select, .form-group textarea{
+    width:100%; padding:14px; border-radius:10px; border:1px solid #ccc; font-size:1rem
+}
+.btn-submit{background:linear-gradient(90deg,#6a11cb,#2575fc); color:white; padding:16px; border:none; border-radius:10px; font-size:1.1rem; font-weight:bold; width:100%; cursor:pointer; transition:0.3s}
+.btn-submit:hover{transform:translateY(-3px); box-shadow:0 10px 20px rgba(106,17,203,0.4)}
+.btn-whatsapp{display:block; text-align:center; background:#25D366; color:white; padding:16px; border-radius:10px; font-size:1.1rem; font-weight:bold; text-decoration:none; margin-top:15px; transition:0.3s}
+.btn-whatsapp:hover{background:#1ebe57; transform:translateY(-3px)}
+</style>
+
+<div class="container" style="padding:100px 20px; text-align:center; color:white">
+    <h1 style="font-size:3rem; margin-bottom:20px">Our Services</h1>
+    <p style="font-size:1.2rem; line-height:2">
+        WEB DEVELOPMENT<br>
+        CYBER SECURITY<br> 
+        IT SUPPORT/TRAINING<br> 
+        CLOUD SOLUTIONS<br>
+        <span style="color:#ff6a00; font-weight:bold">ONLINE IT LESSONS - ALL COURSES</span>
+    </p>
+
+    <p style="font-size:1.5rem; margin-top:40px; font-weight:bold">APPLY NOW FOR SERVICE</p>
+    
+    <div class="form-section">
+        <h2>Request a Service</h2>
+        <form action="https://formsubmit.co/zakmolan@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New Service Request - Zakmolanitech">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://zakmolanitech-official-site.onrender.com/services">
+
+            <div class="form-group" style="text-align:left">
+                <label>Full Name</label>
+                <input type="text" name="name" required>
+            </div>
+
+            <div class="form-group" style="text-align:left">
+                <label>WhatsApp / Phone</label>
+                <input type="text" name="phone" required>
+            </div>
+
+            <div class="form-group" style="text-align:left">
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+
+            <div class="form-group" style="text-align:left">
+                <label>Which Service Do You Need?</label>
+                <select name="service" required>
+                    <option value="">-- Select Service --</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Cyber Security">Cyber Security</option>
+                    <option value="IT Support/Training">IT Support/Training</option>
+                    <option value="Cloud Solutions">Cloud Solutions</option>
+                    <option value="Online IT Lessons - Diploma">Online IT Lessons - Diploma</option>
+                    <option value="Online IT Lessons - Certificate">Online IT Lessons - Certificate</option>
+                    <option value="Online IT Lessons - Microsoft Office">Online IT Lessons - Microsoft Office</option>
+                    <option value="Online IT Lessons - Web Dev/Cyber">Online IT Lessons - Web Dev/Cyber</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="text-align:left">
+                <label>Tell us about your project</label>
+                <textarea name="message" rows="4" placeholder="Describe what you need..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Send Request via Email</button>
+        </form>
+
+        <a href="https://wa.me/256742956448?text=Hi%20Zakmolanitech,%20I%20want%20to%20request%20a%20service" target="_blank" class="btn-whatsapp">
+            📱 Or Message Us on WhatsApp
+        </a>
+        <p style="text-align:center; margin-top:15px; font-size:0.9rem; color:#555">We will contact you within 24 hours</p>
+    </div>
+</div>
+{% endblock %}
