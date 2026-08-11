@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Services - Zakmolanitech Solutions{% endblock %}
+{% block content %}
+<style>
+.form-section{background:rgba(255,255,255,0.95); color:#333; padding:50px 30px; border-radius:20px; margin-top:50px; max-width:700px; margin-left:auto; margin-right:auto}
+.form-section h2{text-align:center; margin-bottom:20px; font-size:2rem; color:#6a11cb}
+.form-group{margin-bottom:20px}
+.form-group label{display:block; margin-bottom:8px; font-weight:bold}
+.form-group input, .form-group select, .form-group textarea{ width:100%; padding:14px; border-radius:10px; border:1px solid #ccc; font-size:1rem }
+.btn-submit{background:linear-gradient(90deg,#6a11cb,#2575fc); color:white; padding:16px; border:none; border-radius:10px; font-size:1.1rem; font-weight:bold; width:100%; cursor:pointer; transition:0.3s}
+.btn-submit:hover{transform:translateY(-3px); box-shadow:0 10px 20px rgba(106,17,203,0.4)}
+.btn-whatsapp{display:block; text-align:center; background:#25D366; color:white; padding:16px; border-radius:10px; font-size:1.1rem; font-weight:bold; text-decoration:none; margin-top:15px}
+</style>
+
+<div class="container" style="padding:20px; text-align:center; color:white">
+    <h1 style="font-size:3rem; margin-bottom:20px">Our Services</h1>
+    <p style="font-size:1.2rem; line-height:2">
+        WEB DEVELOPMENT<br>CYBER SECURITY<br> IT SUPPORT/TRAINING<br> CLOUD SOLUTIONS<br>
+        <span style="color:#ff6a00; font-weight:bold">ONLINE IT LESSONS - ALL COURSES</span>
+    </p>
+
+    <p style="font-size:1.5rem; margin-top:40px; font-weight:bold">APPLY NOW FOR SERVICE</p>
+    
+    <div class="form-section">
+        <h2>Request a Service</h2>
+        <form id="serviceForm">
+            <div class="form-group" style="text-align:left"><label>Full Name</label><input type="text" name="name" required></div>
+            <div class="form-group" style="text-align:left"><label>WhatsApp / Phone</label><input type="text" name="phone"></div>
+            <div class="form-group" style="text-align:left"><label>Email</label><input type="email" name="email" required></div>
+            <div class="form-group" style="text-align:left">
+                <label>Which Service Do You Need?</label>
+                <select name="service" required>
+                    <option value="">-- Select Service --</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Cyber Security">Cyber Security</option>
+                    <option value="IT Support/Training">IT Support/Training</option>
+                    <option value="Cloud Solutions">Cloud Solutions</option>
+                    <option value="Online IT Lessons">Online IT Lessons</option>
+                </select>
+            </div>
+            <div class="form-group" style="text-align:left"><label>Tell us about your project</label><textarea name="message" rows="4" required></textarea></div>
+            <button type="submit" class="btn-submit">Send Request</button>
+            <p id="serviceStatus" style="margin-top:10px; font-weight:bold"></p>
+        </form>
+        <a href="https://wa.me/256742956448" target="_blank" class="btn-whatsapp">📱 Or Message Us on WhatsApp</a>
+    </div>
+
+    <div class="page-nav">
+        <a href="/about"><i class="fa fa-arrow-left"></i> Previous: About</a>
+        <a href="/contact" class="next">Next: Contact <i class="fa fa-arrow-right"></i></a>
+    </div>
+</div>
+
+<script>
+document.getElementById('serviceForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const btn = this.querySelector('button'); const status = document.getElementById('serviceStatus');
+    btn.innerText = "Sending..."; btn.disabled = true;
+    const formData = new FormData(this);
+    const data = {
+        name: formData.get('name') + " - Service: " + formData.get('service'),
+        email: formData.get('email'),
+        message: "Phone: " + formData.get('phone') + "\n\n" + formData.get('message')
+    };
+    const res = await fetch('/send-contact', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
+    if(res.ok) { status.innerText = "✅ Sent! We'll contact you in 24hrs"; status.style.color = "green"; this.reset(); } 
+    else { status.innerText = "❌ Error. Try WhatsApp instead."; status.style.color = "red"; }
+    btn.innerText = "Send Request"; btn.disabled = false;
+});
+</script>
+{% endblock %}
