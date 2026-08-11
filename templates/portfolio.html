@@ -1,1 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="padding:50px 20px">
+    <h1 style="text-align:center; color:white; font-size:3rem; margin-bottom:40px">Our Portfolio</h1>
 
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:30px">
+        
+        <!-- Project 1 -->
+        <div style="background:rgba(255,255,255,0.1); padding:25px; border-radius:15px; backdrop-filter:blur(10px)">
+            <h3 style="color:white">E-Commerce Website</h3>
+            <p style="color:#ddd">Full online store with payment integration for local businesses in Kampala.</p>
+        </div>
+
+        <!-- Project 2 -->
+        <div style="background:rgba(255,255,255,0.1); padding:25px; border-radius:15px; backdrop-filter:blur(10px)">
+            <h3 style="color:white">School Management System</h3>
+            <p style="color:#ddd">Web app to manage students, fees, and results for schools.</p>
+        </div>
+
+        <!-- Project 3 -->
+        <div style="background:rgba(255,255,255,0.1); padding:25px; border-radius:15px; backdrop-filter:blur(10px)">
+            <h3 style="color:white">Company Landing Page</h3>
+            <p style="color:#ddd">Modern responsive website for startups and SMEs.</p>
+        </div>
+
+    </div>
+
+    <!-- ================= DONATE SECTION ================= -->
+    <section id="donate" style="background: linear-gradient(135deg, #6a11cb, #2575fc); padding:60px 20px; text-align:center; border-radius:20px; margin-top:80px; box-shadow: 0 10px 30px rgba(0,0,0,0.3)">
+        <div class="container">
+            <h2 style="color:white; font-size:2.5rem; margin-bottom:15px">
+                <i class="fa fa-heart" style="color:#ff0000"></i> Support Zakmolanitech
+            </h2>
+            <p style="color:#e0e0e0; max-width:700px; margin:0 auto 30px; font-size:1.1rem; line-height:1.6">
+                Your donation helps us build better IT solutions, train more youth in tech, and scale our services across Uganda. 
+                Every contribution, big or small, makes a huge difference.
+            </p>
+            
+            <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:30px">
+                <!-- WhatsApp Donate -->
+                <a href="https://wa.me/256742956448?text=Hello%20Zakmolanitech,%20I%20would%20like%20to%20Donate%20❤️" 
+                   target="_blank" 
+                   style="background:#25D366; color:white; padding:16px 35px; border-radius:12px; text-decoration:none; font-weight:bold; font-size:18px; display:flex; align-items:center; gap:10px; box-shadow:0 5px 15px rgba(37,211,102,0.4); transition:0.3s"
+                   onmouseover="this.style.transform='scale(1.05)'"
+                   onmouseout="this.style.transform='scale(1)'">
+                    <i class="fab fa-whatsapp"></i> Donate via WhatsApp
+                </a>
+                
+                <!-- Mobile Money -->
+                <div style="background:rgba(255,255,255,0.15); color:white; padding:16px 35px; border-radius:12px; font-weight:bold; font-size:18px">
+                    <i class="fa fa-mobile"></i> Momo: +256 742 956 448
+                </div>
+            </div>
+
+            <p style="color:#ccc; font-size:14px">
+                After donating, send us a screenshot on WhatsApp for a thank you message 💕
+            </p>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
