@@ -39,9 +39,17 @@ def services():
 def contact():
     return render_template('contact.html')
 
+import os
+
 @app.route('/portfolio')
 def portfolio():
-    return render_template('portfolio.html')
+    return render_template('portfolio.html',
+        paypal_env = os.getenv('PAYPAL_ENV', 'production'),
+        paypal_main = os.getenv('PAYPAL_BUTTON_ID_MAIN'),
+        paypal_10 = os.getenv('PAYPAL_BUTTON_ID_10'),
+        paypal_25 = os.getenv('PAYPAL_BUTTON_ID_25'),
+        paypal_50 = os.getenv('PAYPAL_BUTTON_ID_50')
+)
 
 @app.route('/pricing')
 def pricing():
