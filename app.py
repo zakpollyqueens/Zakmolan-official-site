@@ -1,19 +1,28 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, jsonify, flash, redirect
 from flask_mail import Mail, Message
+import os
+import requests
+from dotenv import load_dotenv
+
+load_dotenv() # for local testing
 
 app = Flask(__name__)
-app.secret_key = "zakmolanitech_secret_2026"  # needed for flash messages
+app.secret_key = os.environ.get('SECRET_KEY', 'zakmolanitech-secret-key')
 
-# EMAIL CONFIG - Replace with your gmail app password
+# ====== CONFIG ======
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'yourgmail@gmail.com'  # CHANGE THIS
-app.config['MAIL_PASSWORD'] = 'your_app_password'    # CHANGE THIS
-app.config['MAIL_DEFAULT_SENDER'] = 'yourgmail@gmail.com'
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 
 mail = Mail(app)
 
+TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
+TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
+
+
+# ====== ROUTES ======
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -26,7 +35,11 @@ def about():
 def services():
     return render_template('services.html')
 
-@app.route('/portfolio')  # <-- FIXED: No indentation
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/portfolio')
 def portfolio():
     return render_template('portfolio.html')
 
@@ -34,41 +47,73 @@ def portfolio():
 def pricing():
     return render_template('pricing.html')
 
-@app.route('/contact', methods=['GET', 'POST'])
-def contact():
-    if request.method == 'POST':
-        name = request.form['name']
-        email = request.form['email']
-        message = request.form['message']
-        
-        try:
-            msg = Message(
-                subject=f"New Contact from {name}",
-                recipients=['yourgmail@gmail.com'], # Emails will come here
-                body=f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
-            )
-            mail.send(msg)
-            flash('Message sent successfully!', 'success')
-        except Exception as e:
-            flash('Error sending message. Please try again.', 'error')
-            print(e)
-        
-        return redirect(url_for('contact'))
-    
-    return render_template('contact.html')
+@app.route('/donate')
+def donate():
+    return render_template('donate.html')
 
-if __name__ == '__main__':
-    import requests
-from flask import request, jsonify
 
-TELEGRAM_BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"
-TELEGRAM_CHAT_ID = "YOUR_CHAT_ID_HERE"
-
+# ====== CONTACT FORM HANDLER ======
 @app.route('/send-contact', methods=['POST'])
 def send_contact():
     data = request.get_json()
-    text = f"🚨 NEW LEAD - Zakmolanitech\nName: {data['name']}\nEmail: {data['email']}\nMessage: {data['message']}"
-    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    requests.post(url, json={"chat_id": TELEGRAM_CHAT_ID, "text": text})
-    return jsonify({"status": "ok"})
+    name = data.get('name')
+    email = data.get('email')
+    message = data.get('message')
+
+    errors = []
+    success_count = 0
+    
+    # 1. TRY SEND EMAIL
+    try:
+        if not app.config['MAIL_USERNAME'] or not app.config['MAIL_PASSWORD']:
+            errors.append("Email Error: MAIL_USERNAME or MAIL_PASSWORD missing in Render")
+        else:
+            msg = Message(
+                subject=f'🚨 New Lead from {name} - Zakmolanitech',
+                sender=app.config['MAIL_USERNAME'],
+                recipients=[app.config['MAIL_USERNAME']] # sends to yourself
+            )
+            msg.body = f"""
+            You got a new message from the website:
+            
+            Name: {name}
+            Email: {email}
+            Message: {message}
+            """
+            mail.send(msg)
+            success_count += 1
+    except Exception as e:
+        errors.append(f"Email Error: {str(e)}")
+        print("EMAIL ERROR:", e)
+
+    # 2. TRY SEND TELEGRAM
+    try:
+        if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+            errors.append("Telegram Error: BOT_TOKEN or CHAT_ID missing in Render")
+        else:
+            url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+            text = f"""🚨 NEW LEAD - Zakmolanitech
+            
+Name: {name}
+Email: {email}
+Message: {message}"""
+            payload = {"chat_id": TELEGRAM_CHAT_ID, "text": text}
+            r = requests.post(url, json=payload, timeout=10)
+            if r.status_code == 200:
+                success_count += 1
+            else:
+                errors.append(f"Telegram Error: {r.text}")
+    except Exception as e:
+        errors.append(f"Telegram Error: {str(e)}")
+        print("TELEGRAM ERROR:", e)
+
+
+    # 3. RETURN RESPONSE
+    if success_count > 0:
+        return jsonify({"status": "success", "message": "Message sent!"}), 200
+    else:
+        return jsonify({"status": "error", "errors": errors}), 500
+
+
+if __name__ == '__main__':
     app.run(debug=True)
