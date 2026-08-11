@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Zakmolanitech Solutions{% endblock %}</title>
+    <meta name="description" content="Zakmolanitech Solutions - IT Training, Web Dev, and Tech Support in Kampala. Sponsor a laptop for needy youth.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+        body{
+            background: linear-gradient(-45deg, #6a11cb, #2575fc, #00c6ff, #8e2de2);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color:#333;
+            min-height:100vh;
+            display:flex
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* HAMBURGER BUTTON */
+        .menu-toggle{
+            display:none;
+            position:fixed;
+            top:15px;
+            left:15px;
+            z-index:1001;
+            background:#222;
+            color:white;
+            border:none;
+            padding:10px 12px;
+            border-radius:8px;
+            font-size:22px;
+            cursor:pointer;
+            box-shadow:0 4px 10px rgba(0,0,0,0.3)
+        }
+
+        /* SIDEBAR */
+        header{
+            width:260px;
+            background:rgba(34,34,34,0.9);
+            backdrop-filter: blur(10px);
+            color:white;
+            position:fixed;
+            height:100vh;
+            left:0;
+            top:0;
+            border-right:1px solid rgba(255,255,255,0.1);
+            display:flex;
+            flex-direction:column;
+            padding:20px;
+            z-index:1000;
+            transition: transform 0.3s ease
+        }
+        .logo-wrap{ 
+            display:flex; 
+            align-items:center; 
+            gap:12px; 
+            margin-bottom:30px;
+            border-bottom:1px solid rgba(255,255,255,0.1);
+            padding-bottom:20px
+        }
+        .logo-img{ width:50px; height:50px; object-fit:contain; filter: drop-shadow(0 0 8px rgba(106,17,203,0.5)); }
+        .logo-text{ 
+            font-size:1.3rem; 
+            font-weight:bold; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            background:linear-gradient(90deg,#00c6ff,#6a11cb); 
+            -webkit-background-clip:text; 
+            -webkit-text-fill-color:transparent; 
+        }
+
+        nav{display:flex; flex-direction:column; gap:5px; flex:1}
+        nav a{
+            color:white;
+            text-decoration:none;
+            font-weight:bold; 
+            transition:0.3s;
+            padding:12px 15px;
+            border-radius:8px;
+            display:flex;
+            align-items:center;
+            gap:10px
+        }
+        nav a:hover{background:rgba(0,198,255,0.2); color:#00c6ff}
+
+        .donate-btn{background:#ff0000; color:white; margin-top:10px; justify-content:center}
+        .donate-btn:hover{background:#cc0000; color:white}
+
+        .socials-sidebar{display:flex; justify-content:center; gap:15px; margin-top:20px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.1)}
+        .socials-sidebar a{font-size:20px; color:white; transition:0.3s}
+        .socials-sidebar a:hover{color:#00c6ff}
+
+        /* MAIN CONTENT */
+        .main-content{
+            margin-left:260px;
+            width:calc(100% - 260px);
+            padding:20px;
+            transition: margin-left 0.3s ease
+        }
+        .container{max-width:1100px;margin:0 auto;padding:20px}
+
+        footer{background:rgba(34,34,34,0.8); color:white; text-align:center; padding:20px; margin-top:50px; border-radius:15px}
+        footer a{color:#00c6ff; text-decoration:none}
+        footer a:hover{text-decoration:underline}
+        .footer-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px; text-align:left; padding-bottom:20px}
+
+        .fab-container{
+            position:fixed;
+            bottom:25px;
+            right:25px;
+            z-index:999;
+            display:flex;
+            flex-direction:column;
+            gap:15px;
+        }
+        .fab{
+            width:60px;
+            height:60px;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:28px;
+            color:white;
+            text-decoration:none;
+            box-shadow:0 4px 15px rgba(0,0,0,0.3);
+            transition:0.3s;
+            animation:float 3s ease-in-out infinite;
+        }
+        .fab:hover{ transform:scale(1.1) }
+        .fab-whatsapp{ background:#25D366 }
+        .fab-donate{ background:#ff0000; animation-delay:0.5s }
+        @keyframes float{
+            0%,100%{transform:translateY(0)}
+            50%{transform:translateY(-10px)}
+        }
+
+        /* OVERLAY FOR MOBILE */
+        .overlay{
+            display:none;
+            position:fixed;
+            top:0; left:0;
+            width:100%; height:100%;
+            background:rgba(0,0,0,0.5);
+            z-index:999;
+        }
+        .overlay.active{display:block}
+
+        /* MOBILE RESPONSIVE */
+        @media(max-width: 900px){
+            .menu-toggle{display:block}
+            body{flex-direction:column}
+            header{
+                transform: translateX(-100%);
+            }
+            header.active{
+                transform: translateX(0);
+            }
+            .main-content{
+                margin-left:0; 
+                width:100%;
+                padding-top:70px
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HAMBURGER BUTTON -->
+    <button class="menu-toggle" id="menuToggle"><i class="fa fa-bars"></i></button>
+    
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay"></div>
+
+    <header id="sidebar">
+        <div class="logo-wrap">
+            <img src="{{ url_for('static', filename='IMG-20260809-WA3940.jpg') }}" class="logo-img" alt="Zakmolanitech Logo">
+            <div class="logo-text">ZAKMOLANITECH</div>
+        </div>
+        
+        <nav>
+            <a href="/"><i class="fa fa-home"></i> Home</a>
+            <a href="/about"><i class="fa fa-user"></i> About</a>
+            <a href="/services"><i class="fa fa-cogs"></i> Services</a>
+            <a href="/portfolio"><i class="fa fa-briefcase"></i> Portfolio</a>
+            <a href="/pricing"><i class="fa fa-tags"></i> Pricing</a>
+            <a href="/contact"><i class="fa fa-envelope"></i> Contact</a>
+            
+            <a href="https://paypal.me/zakmolanitech" target="_blank" rel="noopener" class="donate-btn"><i class="fa fa-heart"></i> Donate ❤️</a>
+
+            <div class="socials-sidebar">
+                <a href="https://www.tiktok.com/@zakmolanitech.solu?_r=1&_t=ZS-98mwLaKsIZ2" target="_blank" rel="noopener" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/zakmolanitech.solutions" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/zak-molan" target="_blank" rel="noopener" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+
+        <footer>
+            <div class="container footer-grid">
+                <div>
+                    <h3 style="margin-bottom:10px">Zakmolanitech</h3>
+                    <p>IT Solutions That Scale</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom:10px">Contact Us</h3>
+                    <p>📱 WhatsApp Business: <a href="https://wa.me/256742956448" target="_blank">+256 742 956 448</a></p>
+                    <p>📱 WhatsApp chat: <a href="https://wa.me/256775226333" target="_blank">+256 775 226 333</a></p>
+                    <p>📧 Email: <a href="mailto:info@zakmolanitech.com">info@zakmolanitech.com</a></p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom:10px">Follow Us</h3>
+                    <p>🎵 TikTok: <a href="https://www.tiktok.com/@zakmolanitech.solu?_r=1&_t=ZS-98mwLaKsIZ2" target="_blank">@zakmolanitech.solu</a></p>
+                    <p>📸 Instagram: <a href="https://www.instagram.com/zakmolanitech.solutions" target="_blank">@zakmolanitech.solutions</a></p>
+                    <p>💼 LinkedIn: <a href="https://www.linkedin.com/in/zak-molan" target="_blank">Zak Molan</a></p>
+                    <p>📢 Telegram: <a href="https://t.me/Zakmolanitechsolutions" target="_blank">@Zakmolanitechsolutions</a></p>
+                </div>
+            </div>
+
+            <!-- FLOATING ACTION BUTTONS -->
+            <div class="fab-container">
+                <a href="https://paypal.me/zakmolanitech" target="_blank" rel="noopener" class="fab fab-donate" title="Donate Now">❤️</a>
+                <a href="https://wa.me/256742956448" target="_blank" rel="noopener" class="fab fab-whatsapp" title="Chat on WhatsApp">💬</a>
+            </div>
+
+            <p style="border-top:1px solid rgba(255,255,255,0.1); padding-top:15px; margin-top:20px">
+                made with 💕 by ZakMolan CEO Zakmolanitech solutions<br>
+                © 2026 Zakmolanitech.com All Rights Reserved.
+            </p>
+        </footer>
+    </main>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Close sidebar when clicking a link on mobile
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                if(window.innerWidth <= 900){
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+  </html>
