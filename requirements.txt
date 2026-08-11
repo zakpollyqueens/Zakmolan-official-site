@@ -2,3 +2,8 @@ Flask==3.0.3
 Flask-Mail==0.10.0
 gunicorn==22.0.0
 requests
+    Flask
+    Flask-Mail
+    requests
+    python-dotenv
+    gunicorn
