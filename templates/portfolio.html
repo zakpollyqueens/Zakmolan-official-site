@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block title %}Portfolio - ZakMolanitech Solutions {% endblock %}
+{% block content %}
+<style>
+.portfolio-hero{padding:120px 20px 60px; text-align:center; color:white; background:linear-gradient(135deg,#6a11cb,#2575fc)}
+.portfolio-section{max-width:1200px; margin:0 auto; padding:60px 20px}
+.section-title{text-align:center; font-size:2.5rem; color:white; margin-bottom:40px}
+.portfolio-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:30px; margin-bottom:60px}
+.portfolio-card{background:rgba(255,255,255,0.98); color:#333; border-radius:20px; overflow:hidden; transition:0.3s; box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+.portfolio-card:hover{transform:translateY(-10px)}
+.portfolio-info{padding:25px}
+.portfolio-info h3{color:#6a11cb; margin-bottom:10px; font-size:1.4rem}
+.requirement{background:#f0f4ff; padding:12px; border-radius:10px; margin:12px 0; font-size:0.9rem; border-left:4px solid #6a11cb}
+.tag{display:inline-block; background:#eef; color:#6a11cb; padding:5px 12px; border-radius:20px; font-size:0.85rem; margin:4px}
+.free-tag{display:inline-block; background:#00c851; color:white; padding:5px 12px; border-radius:20px; font-size:0.85rem; margin:4px; font-weight:bold}
+.btn-view{display:inline-block; background:linear-gradient(90deg,#6a11cb,#2575fc); color:white; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:bold; margin-top:10px}
+.btn-free{display:inline-block; background:#00c851; color:white; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:bold; margin-top:10px}
+.brochure-btn{display:inline-block; background:#ff6a00; color:white; padding:16px 35px; border-radius:12px; text-decoration:none; font-weight:bold; font-size:1.1rem; margin:20px 10px}
+.student-gallery{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; margin:30px 0}
+.student-img{border-radius:15px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.2); position:relative}
+.student-img img{width:100%; height:250px; object-fit:cover; display:block}
+.student-img .caption{position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.7); color:white; padding:10px; font-size:0.9rem}
+.testimonial{background:white; color:#333; padding:25px; border-radius:15px; margin:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); text-align:left}
+.testimonial p{font-style:italic; margin-bottom:10px}
+.testimonial span{color:#6a11cb; font-weight:bold}
+.need-banner{background:linear-gradient(135deg,#ff0000,#ff6a00); padding:20px; border-radius:15px; margin:30px auto; max-width:800px; font-size:1.2rem; font-weight:bold}
+.free-box{background:linear-gradient(135deg,#00c851,#00e676); padding:40px; border-radius:20px; text-align:center; color:white; margin:40px auto; max-width:900px}
+</style>
+
+<!-- HERO -->
+<div class="portfolio-hero">
+    <h1 style="font-size:3.2rem; margin-bottom:10px">Zakmolanitech Solutions </h1>
+    <p style="font-size:1.1rem; margin-bottom:20px"><i>"Equipping minds with IT solutions "</i></p>
+    <a href="#free" class="brochure-btn" style="background:#00c851">🎓 Free Lessons</a>
+    <a href="mailto:zakmolan@gmail.com" class="brochure-btn" style="background:#25D366">✉️ Book Your Place</a>
+    <a href="#donate" class="brochure-btn" style="background:#ff0000">❤️ Donate Now</a>
+</div>
+
+<!-- TRAINING -->
+<div class="portfolio-section">
+    <h2 class="section-title">Our Training Programs</h2>
+    <div class="portfolio-grid">
+        <div class="portfolio-card">
+            <div style="width:100%; height:220px; background:linear-gradient(135deg,#6a11cb,#2575fc); display:flex; align-items:center; justify-content:center; font-size:3.5rem">🎓</div>
+            <div class="portfolio-info">
+                <span class="tag">2 Years</span><span class="tag">Diploma</span>
+                <h3>Diploma in ICT</h3>
+                <div class="requirement"><b>Requirements:</b> 5 passes including 2 principal passes at 'A' Level</div>
+                <a href="mailto:zakmolan@gmail.com" class="btn-view">Apply Now</a>
+            </div>
+        </div>
+        <div class="portfolio-card">
+            <div style="width:100%; height:220px; background:linear-gradient(135deg,#6a11cb,#2575fc); display:flex; align-items:center; justify-content:center; font-size:3.5rem">📜</div>
+            <div class="portfolio-info">
+                <span class="tag">1 Year</span><span class="tag">Certificate</span>
+                <h3>Certificate in ICT</h3>
+                <div class="requirement"><b>Requirements:</b> O'Level with A in ICT</div>
+                <a href="mailto:zakmolan@gmail.com" class="btn-view">Apply Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FREE LESSONS SECTION -->
+<div id="free" style="background:#0f172a; padding:80px 20px; color:white">
+    <h2 class="section-title">Free IT Lessons for Needy Youth & Kids 💚</h2>
+    <div class="free-box">
+        <h3 style="font-size:2rem; margin-bottom:15px">Because Talent Shouldn't Depend on Money</h3>
+        <p style="font-size:1.2rem; margin-bottom:25px">Every Saturday we offer FREE computer basics, coding, and digital skills classes to vulnerable youth and kids in Kampala.</p>
+        <a href="mailto:zakmolan@gmail.com?subject=Free%20Lessons%20Registration" class="btn-free">Register for Free Classes</a>
+    </div>
+</div>
+
+<!-- STUDENTS IN NEED -->
+<div style="background:#1a1a2e; padding:80px 20px; text-align:center; color:white">
+    <h2 class="section-title">The Reality: Students in Need 🇺🇬</h2>
+    <div class="need-banner">Many talented youth have the brains but NO laptop. Help us change that.</div>
+    <a href="#donate" style="display:inline-block; background:#ff0000; color:white; padding:18px 40px; border-radius:12px; text-decoration:none; font-weight:bold; font-size:1.2rem; margin-top:20px">❤️ Sponsor a Laptop for Free Classes</a>
+</div>
+
+<!-- TESTIMONIALS -->
+<div style="background:#f8f9fa; padding:80px 20px; color:#333; text-align:center">
+    <h2 style="color:#6a11cb; font-size:2.5rem; margin-bottom:15px">Stories of Impact</h2>
+</div>
+
+<!-- DONATE - UPDATED WITH PAYPAL.ME -->
+<div id="donate" style="background:linear-gradient(135deg,#6a11cb,#2575fc); padding:80px 20px; text-align:center; color:white">
+    <h2 style="font-size:2.5rem; margin-bottom:15px">Support Our Free Programs 💙</h2>
+    <p style="font-size:1.1rem; margin-bottom:30px">Your donation buys laptops so needy youth can join free classes</p>
+    
+    <!-- QUICK AMOUNTS -->
+    <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap; margin-bottom:40px">
+        <a href="https://www.paypal.me/Zakmolanitech/10" target="_blank" style="background:rgba(255,255,255,0.2); padding:15px 25px; border-radius:10px; font-weight:bold; text-decoration:none; color:white">$10</a>
+        <a href="https://www.paypal.me/Zakmolanitech/25" target="_blank" style="background:rgba(255,255,255,0.2); padding:15px 25px; border-radius:10px; font-weight:bold; text-decoration:none; color:white">$25</a>
+        <a href="https://www.paypal.me/Zakmolanitech/50" target="_blank" style="background:rgba(255,255,255,0.2); padding:15px 25px; border-radius:10px; font-weight:bold; text-decoration:none; color:white">$50</a>
+        <a href="https://www.paypal.me/Zakmolanitech" target="_blank" style="background:rgba(255,255,255,0.2); padding:15px 25px; border-radius:10px; font-weight:bold; text-decoration:none; color:white">Any Amount</a>
+    </div>
+
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:25px; max-width:1000px; margin:0 auto">
+        
+        <!-- PAYPAL / CARD -->
+        <div style="background:white; color:#333; padding:30px; border-radius:15px; width:280px; box-shadow:0 5px 15px rgba(0,0,0,0.2)">
+            <h3 style="color:white; background:linear-gradient(90deg,#eb001b,#f79e1b); padding:8px; border-radius:8px; margin-bottom:10px">Credit/Debit Card + PayPal</h3>
+            <p style="font-size:1.1rem; font-weight:bold; color:#6a11cb; margin-bottom:15px">Visa, MasterCard, PayPal</p>
+            <a href="https://www.paypal.me/Zakmolanitech" target="_blank"
+               style="background:#0070ba; color:white; padding:12px 25px; border-radius:8px; font-weight:bold; text-decoration:none; display:inline-block">
+               Donate Now
+            </a>
+            <p style="font-size:0.85rem; margin-top:10px">Works worldwide. Receipt sent by PayPal.</p>
+        </div>
+
+        <!-- MTN MOBILE MONEY -->
+        <div style="background:white; color:#333; padding:30px; border-radius:15px; width:280px">
+            <h3 style="color:#ffcc00; background:#000; padding:8px; border-radius:8px; margin-bottom:10px">MTN Mobile Money</h3>
+            <p style="font-size:1.9rem; font-weight:bold; color:#6a11cb; margin-bottom:10px">256 775 226 333</p>
+            <a href="https://wa.me/256775226333?text=Hello%20Zakmolanitech%2C%20I%20want%20to%20donate%20via%20MTN" 
+               target="_blank"
+               style="background:#ffcc00; color:#000; padding:10px 20px; border-radius:8px; font-weight:bold; text-decoration:none; display:inline-block">Click to Donate via MTN</a>
+        </div>
+
+        <!-- AIRTEL MERCHANT BOX -->
+        <div style="background:white; color:#333; padding:30px; border-radius:15px; width:280px; border:3px solid #e60000">
+            <h3 style="color:white; background:#e60000; padding:8px; border-radius:8px; margin-bottom:10px">Airtel Money</h3>
+            <p style="font-size:1.1rem; font-weight:bold; color:#6a11cb; margin-bottom:5px">Pay to Merchant</p>
+            <p style="font-size:2.2rem; font-weight:bold; color:#e60000; margin-bottom:5px">7171832</p>
+            <p style="font-size:0.9rem; color:#666; margin-bottom:15px">Business: ISAAC Zakmolanitech Solutions</p>
+            <div style="background:#fff5f5; padding:12px; border-radius:8px; text-align:left; font-size:0.85rem; margin-bottom:15px; border-left:4px solid #e60000">
+                <b>How to send help:</b><br>1. Dial <b>*185#</b><br>2. Select <b>4. Pay</b><br>3. Select <b>2. Merchant</b><br>4. Enter <b>7171832</b><br>5. Enter Amount & PIN
+            </div>
+            <a href="https://wa.me/256742956448?text=Hello%20Zakmolanitech%2C%20I%20have%20paid%20via%20Airtel%20Merchant%207171832" 
+               target="_blank"
+               style="background:#e60000; color:white; padding:10px 20px; border-radius:8px; font-weight:bold; text-decoration:none; display:inline-block">Send Payment Proof</a>
+        </div>
+    </div>
+
+    <!-- CANADIAN DONORS INFO -->
+    <div style="margin-top:30px; background:rgba(255,255,255,0.2); padding:25px; border-radius:15px; max-width:700px; margin:40px auto 0; text-align:left">
+        <h3 style="text-align:center; margin-bottom:15px">🇨🇦 Donating from Canada / Alberta</h3>
+        <p style="margin-bottom:10px">PayPal accepts all Canadian cards. Postal codes start with <b>T</b></p>
+        <p style="font-size:0.9rem; opacity:0.9">Examples: Calgary T2P 2G8, Edmonton T5J 3N4</p>
+    </div>
+
+</div>
+
+<!-- REMOVED PAYPAL SDK SCRIPT - USING PAYPAL.ME FOR NOW -->
+
+<!-- DONOR WALL -->
+<div id="donors" style="padding:80px 20px; background:#f8f9fa; color:#333; text-align:center">
+  <h2 style="color:#0070ba; font-size:2.5rem; margin-bottom:10px">💙 Our Amazing Donors</h2>
+  <p style="color:#666; margin-bottom:40px">Every donation helps a student get closer to a laptop</p>
+  <p style="color:#999">Be the first donor! ❤️</p>
+</div>
+
+{% endblock %}
